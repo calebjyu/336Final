@@ -10,6 +10,7 @@ softDrinks = pd.read_csv("soft_drinks.csv")
 food = pd.read_csv("food.csv")
 dates = pd.read_csv("dates2.csv")
 bartenders = pd.read_csv("bartenders.csv")
+originalBills = pd.read_csv("bills.csv")
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 
 barNames = bars['name']
@@ -93,9 +94,41 @@ for bartender in bartenderNames:
 	randday = randint(0,6)
 	bar = barNames[randbar]
 
+bills = []
+transactsRelation = []
+printedOnRelation = []
+count = 0
+for ID in originalBills['trans_id']:
+	#choose a bar, choose a drinker, choose how many items and which items, find price
+	barNum = randint(0,len(barNames)-1)
+	drinkerNum = randint(0,len(drinkerNames)-1)
+	itemNum = randint(1,5)
+	barSells = []
+	subtotal = 0
+	for x in sellsRelation:
+		if x[0] is barNames[barNum] and (x[1],x[2]) not in barSells:
+			barSells.append((x[1],x[2]))
+	items = []
+	for i in range(itemNum):
+		rand = randint(0,len(barSells)-1)
+		item = barSells[rand][0]
+		items.append(item)
+		price = barSells[rand][1]
+		subtotal += price
+	time = originalBills['time'][count]
+	count += 1
+	tip = subtotal * 0.15
+	tax = subtotal * 0.06
+	bills.append((ID,time,subtotal,tip,subtotal+tip+tax))
+	for i in items:
+		printedOnRelation.append((i,ID))
+	transactsRelation.append((drinkerNames[drinkerNum],ID,barNames[barNum]))
 
 #output: dataframe
 #print(pd.DataFrame(frequentsRelation))
 #print(pd.DataFrame(likesRelation))
 #print(pd.DataFrame(sellsRelation))
 #print(pd.DataFrame(inventoryRelation))
+#print(pd.DataFrame(bills))
+#print(pd.DataFrame(printedOnRelation))
+#print(pd.DataFrame(transactsRelation))
