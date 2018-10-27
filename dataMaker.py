@@ -94,8 +94,6 @@ for bartender in bartenderNames:
 	bar = barNames[randbar]
 
 
-
-
 #output: dataframe
 #print(pd.DataFrame(frequentsRelation))
 #print(pd.DataFrame(likesRelation))
