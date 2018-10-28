@@ -106,7 +106,14 @@ for bar in barNames:
 				counter+=1
 			else:
 				continue
-
+hoursRelation = []
+for bar in barNames:
+	for day in days:
+		start = "12:01 AM"
+		end = "11:59 PM"
+		a = (day,bar,start,end)
+		if a not in hoursRelation:
+			hoursRelation.append(a)
 
 
 bills = []
