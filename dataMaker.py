@@ -94,14 +94,18 @@ worksRelation = []
 for bar in barNames:
 	for day in days:
 		randList=[]
-		for index, s in enumerate(start):
-			randBT = randint(0, len(bartenderNames)-1)
-			bt = bartenderNames[randBT]
-			e = end[index]
-			a = (bar,bt,day,s,e)
+		counter = 0
+		while counter < len(start):
+			randBT=randint(0,len(bartenderNames)-1)
+			bt=bartenderNames[randBT]
+			e=end[counter]
+			s=start[counter]
 			if (bar,bt,day,s,e) not in worksRelation and randBT not in randList:
 				worksRelation.append((bar,bt,day,s,e))
 				randList.append(randBT)
+				counter+=1
+			else:
+				continue
 
 print(pd.DataFrame(worksRelation))
 
