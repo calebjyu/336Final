@@ -10,7 +10,7 @@ softDrinks = pd.read_csv("soft_drinks.csv")
 food = pd.read_csv("food.csv")
 dates = pd.read_csv("dates2.csv")
 bartenders = pd.read_csv("bartenders.csv")
-originalBills = pd.read_csv("bills.csv")
+originalBills = pd.read_csv("billsIncomplete.csv")
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 start=['1','9','5']
 end=['9','5','1']
@@ -107,7 +107,7 @@ for bar in barNames:
 			else:
 				continue
 
-print(pd.DataFrame(worksRelation))
+
 
 bills = []
 transactsRelation = []
@@ -147,3 +147,13 @@ for ID in originalBills['trans_id']:
 #print(pd.DataFrame(bills))
 #print(pd.DataFrame(printedOnRelation))
 #print(pd.DataFrame(transactsRelation))
+#print(pd.DataFrame(worksRelation))
+
+pd.DataFrame(frequentsRelation).to_csv("frequents.csv",sep=',', index = False)
+pd.DataFrame(likesRelation).to_csv("likes.csv",sep=',', index = False)
+pd.DataFrame(sellsRelation).to_csv("sells.csv",sep=',', index = False)
+pd.DataFrame(inventoryRelation).to_csv("inventory.csv",sep=',', index = False)
+pd.DataFrame(bills).to_csv("bills.csv",sep=',', index = False)
+pd.DataFrame(printedOnRelation).to_csv("printed_on.csv",sep=',', index = False)
+pd.DataFrame(transactsRelation).to_csv("transacts.csv",sep=',', index = False)
+pd.DataFrame(worksRelation).to_csv("works.csv",sep=',', index = False)
