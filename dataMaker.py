@@ -164,3 +164,4 @@ pd.DataFrame(inventoryRelation).to_csv("inventory.csv",sep=',', index = False, e
 pd.DataFrame(printedOnRelation).to_csv("printed_on.csv",sep=',', index = False, encoding='utf-8')
 pd.DataFrame(transactsRelation).to_csv("transacts.csv",sep=',', index = False, encoding='utf-8')
 pd.DataFrame(worksRelation).to_csv("works.csv",sep=',', index = False, encoding='utf-8')
+pd.DataFrame(hoursRelation).to_csv("hours.csv",sep=',',index=False,encoding='utf-8')
