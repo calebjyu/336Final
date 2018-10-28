@@ -12,7 +12,8 @@ dates = pd.read_csv("dates2.csv")
 bartenders = pd.read_csv("bartenders.csv")
 originalBills = pd.read_csv("bills.csv")
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-
+start=['1','9','5']
+end=['9','5','1']
 barNames = bars['name']
 drinkerNames = drinkers['name']
 beerNames = beer['name']
@@ -87,12 +88,22 @@ for bar in barNames:
 				i = randint(0,99)
 				inventoryRelation.append(
 					(bar,beer,amount,dates['date'][i]))
-		
+
+
 worksRelation = []
-for bartender in bartenderNames:
-	randbar = randint(0,len(barNames))
-	randday = randint(0,6)
-	bar = barNames[randbar]
+for bar in barNames:
+	for day in days:
+		for index, s in enumerate(start):
+			randBT = randint(0, len(bartenderNames)-1)
+			print(randBT)
+			bt = bartenderNames[randBT]
+			e = end[index]
+			a = (bar,bt,day,s,e)
+			if(bar,bt,day,s,e) not in worksRelation:
+				worksRelation.append((bar,bt,day,s,e))
+
+#print(pd.DataFrame(worksRelation))
+
 
 bills = []
 transactsRelation = []
