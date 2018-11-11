@@ -4,3 +4,31 @@
     <p class="lead">A Database by Caleb Yu, Arjun Bansil, and Jesse Lin.</p>
   </div>
 </div>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">License</th>
+        <th scope="col">State</th>
+        <th scope="col">City</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bar of bars; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{bar.name}}</td>
+        <td>{{bar.license}}</td>
+        <td>{{bar.state}}</td>
+        <td>{{bar.city}}</td>
+        <td>{{bar.phone}}</td>
+        <td>{{bar.address}}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>

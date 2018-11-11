@@ -24,7 +24,7 @@ WHERE transacts.bar = inventory.bar AND sells.bar = inventory.bar
 #5)  A bartender cannot work more  than one shift a day.
 select distinct w1.bartender, w1.bar 
 from works w1, works w2 
-where w1.date = w2.date
+where w1.date = w2.date;
 
 
 select w1.bartender
