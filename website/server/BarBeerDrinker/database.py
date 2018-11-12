@@ -29,3 +29,20 @@ def filter_beers(max_price):
                 for r in results:
                         r['price'] = float(r['price'])
                 return results
+
+def get_bar_menu(bar_name):
+    with engine.connect() as con:
+        query = sql.text(
+            'SELECT a.bar, a.beer, a.price, a.manf, coalesce(c.like_count), 0 as likes \
+              FROM sells as a \
+              JOIN beers as b \
+              on a.beer = b.name \
+              LEFT OUTER JOIN (SELECT beer, count(*) as like_count FROM likes GROUP by beer) as c \
+              ON a.beer = c.beer \
+              WHERE a.bar = :bar; \
+            ')
+        rs = con.execute(query, bar=bar_name)
+        results = [dict(row) for row in rs]
+        for i, _ in enumerate(results):
+            results[i]['price'] = float(results[i]['price'])
+        return results

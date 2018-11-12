@@ -32,3 +32,4 @@ def find_beers_cheaper_than():
     max_price = body['maxPrice']
     return jsonify(database.filter_beers(max_price))
 
+
