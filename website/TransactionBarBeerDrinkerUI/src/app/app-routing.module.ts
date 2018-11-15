@@ -5,6 +5,7 @@ import { BarDetailsComponent } from './bar-details/bar-details.component';
 import { BartendersPageComponent } from './bartenders-page/bartenders-page.component';
 import { BeersPageComponent } from './beers-page/beers-page.component';
 import { DrinkerPageComponent } from './drinker-page/drinker-page.component';
+import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
 import { ManfPageComponent } from './manf-page/manf-page.component';
 import { ModifyPageComponent } from './modify-page/modify-page.component';
 import { QueryPageComponent } from './query-page/query-page.component';
@@ -34,6 +35,10 @@ const routes: Routes = [{
   path: 'drinker',
   pathMatch: 'full',
   component: DrinkerPageComponent
+},{
+  path: 'drinker/:drinker',
+  pathMatch: 'full',
+  component: DrinkerDetailsComponent
 },{
   path: 'manf',
   pathMatch: 'full',

@@ -15,6 +15,7 @@ import { ManfPageComponent } from './manf-page/manf-page.component';
 import { QueryPageComponent } from './query-page/query-page.component';
 import { ModifyPageComponent } from './modify-page/modify-page.component';
 import { BarPageComponent } from './bar-page/bar-page.component';
+import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BarPageComponent } from './bar-page/bar-page.component';
     ManfPageComponent,
     QueryPageComponent,
     ModifyPageComponent,
-    BarPageComponent
+    BarPageComponent,
+    DrinkerDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,14 @@ def get_bars():
 def get_drinkers():
     return jsonify(database.get_drinkers())
 
+@app.route('/api/beer', methods=["GET"])
+def get_beer():
+    return jsonify(database.get_beers())
+
+@app.route('/api/bartender', methods=["GET"])
+def get_bartenders():
+    return jsonify(database.get_bartenders())
+
 @app.route("/api/bar/<name>", methods=["GET"])
 def find_bar(name):
     try:
