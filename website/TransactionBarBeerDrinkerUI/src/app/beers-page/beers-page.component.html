@@ -6,8 +6,8 @@
 
 <div class="container">
 
-  <p-table [value]="beers">
-    <ng-template ptemplate="header">
+  <p-table [value]="beer">
+    <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
             <th>Manufacturer</th>
@@ -21,9 +21,10 @@
                 {{beer.name}}
               </a>-->
             </td>
-            <td>{{bar.manf}}</td>
+            <td>{{beer.attr}}</td>
           </tr>
     </ng-template>
   </p-table>
   
 </div>
+<br><br>

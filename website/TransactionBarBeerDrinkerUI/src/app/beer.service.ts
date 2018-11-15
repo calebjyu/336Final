@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 export interface Beer{
   name: string;
-  manf: string;
+  attr: string;
 }
 
 @Injectable({

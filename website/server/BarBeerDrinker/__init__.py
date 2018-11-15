@@ -17,7 +17,7 @@ def get_drinkers():
     return jsonify(database.get_drinkers())
 
 @app.route('/api/beer', methods=["GET"])
-def get_beer():
+def get_beers():
     return jsonify(database.get_beers())
 
 @app.route('/api/bartender', methods=["GET"])
