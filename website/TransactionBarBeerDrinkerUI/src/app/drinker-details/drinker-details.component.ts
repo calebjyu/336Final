@@ -19,7 +19,7 @@ export class DrinkerDetailsComponent implements OnInit {
     private route: ActivatedRoute
   ) { 
     route.paramMap.subscribe((paramMap => {
-      this.drinkerName = paramMap.get('bar');
+      this.drinkerName = paramMap.get('drinker');
       drinkerService.getDrinker(this.drinkerName).subscribe(
         data => {
           this.drinkerDetails = data;

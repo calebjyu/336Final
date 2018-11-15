@@ -16,10 +16,9 @@
     <ng-template pTemplate="body" let-beer>
         <tr>
             <td>
-              {{beer.name}}
-              <!--<a routerLink="/beer/{{beer.name}}">              
+              <a routerLink="/beers/{{beer.name}}">              
                 {{beer.name}}
-              </a>-->
+              </a>
             </td>
             <td>{{beer.attr}}</td>
           </tr>

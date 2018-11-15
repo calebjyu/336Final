@@ -62,9 +62,9 @@ def get_bartenders():
         query = con.execute("SELECT * FROM bartenders;")
         return [dict(row) for row in query]
 
-def get_beers():
+def get_manf():
     with engine.connect() as con:
-        query = con.execute("SELECT DISTINCT attr FROM items where type = beer;")
+        query = con.execute("SELECT DISTINCT attr FROM items where type = 'beer';")
         return [dict(row) for row in query]
 
 
