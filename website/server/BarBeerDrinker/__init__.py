@@ -12,6 +12,22 @@ app = Flask(__name__)
 def get_bars():
     return jsonify(database.get_bars())
 
+@app.route('/api/drinker', methods=["GET"])
+def get_drinkers():
+    return jsonify(database.get_drinkers())
+
+@app.route('/api/beer', methods=["GET"])
+def get_beers():
+    return jsonify(database.get_beers())
+
+@app.route('/api/bartender', methods=["GET"])
+def get_bartenders():
+    return jsonify(database.get_bartenders())
+
+@app.route('/api/manf', methods=["GET"])
+def get_manf():
+    return jsonify(database.get_manf())
+
 @app.route("/api/bar/<name>", methods=["GET"])
 def find_bar(name):
     try:
