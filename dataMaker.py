@@ -113,8 +113,7 @@ def test():
 	transactsRelation = []
 	printedOnRelation = []
 	count = 0
-	dateData = pd.read_csv("random_date.csv")
-	rDates = dateData['date']
+
 
 	
 	for ID in originalBills['trans_id']:
@@ -122,28 +121,25 @@ def test():
 		barNum = randint(0,len(barNames)-1)
 		drinkerNum = randint(0,len(drinkerNames)-1)
 		itemNum = randint(1,5)
-		randDateNum = randint(0, len(rDates)-1)
-		#barSells = []
+		barSells = []
 		subtotal = 0
-		#for x in sellsRelation:
-			#if x[0] is barNames[barNum] and (x[1],x[2]) not in barSells:
-				#barSells.append((x[1],x[2]))
+		for x in sellsRelation:
+			if x[0] is barNames[barNum] and (x[1],x[2]) not in barSells:
+				barSells.append((x[1],x[2]))
 		items = []
 		for i in range(itemNum):
-			#rand = randint(0,len(barSells)-1)
-			#item = barSells[rand][0]
-			#items.append(item)
-			#price = barSells[rand][1]
+			rand = randint(0,len(barSells)-1)
+			item = barSells[rand][0]
+			items.append(item)
+			price = barSells[rand][1]
 			subtotal += price
 		time = originalBills['time'][count]
 		count += 1
 		tip = subtotal * 0.15
 		tax = subtotal * 0.06
-		date = rDates[randDateNum]
-		bills.append((ID,date,time,subtotal,tip,subtotal+tip+tax))
+		bills.append((ID,time,subtotal,tip,subtotal+tip+tax))
 		for i in items:
-			if((i,ID) not in printedOnRelation):
-				printedOnRelation.append((i,ID))
+			printedOnRelation.append((i,ID))
 		transactsRelation.append((drinkerNames[drinkerNum],ID,barNames[barNum]))
 
 	operatesRelation = []
