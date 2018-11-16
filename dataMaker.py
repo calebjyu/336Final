@@ -176,17 +176,16 @@ for ID in originalBills['trans_id']:
 	
 
 
-#billsDF = pd.read_csv("bills.csv")
-
-#billsDF["date"] = ""
-#dateData = pd.read_csv("random_date.csv")
-#rDates = dateData['date']
-#for row in billsDF:
-#	i = randint(0, len(rDates))
-#	date = rDates[i]
-#	row["date"] += date
-
-#billsDF.head()
+billsDF = pd.read_csv("submission/bills.csv")
+dateData = pd.read_csv("random_date.csv")
+billsDF["date"] = ""
+billsDF.head()
+rDates = dateData['date']
+for index, row in billsDF.iterrows():
+	i = randint(0, len(rDates)-1)
+	date = rDates[i]
+	billsDF.at[index,'date'] = date
+billsDF.head()
 
 
 #output: dataframe
