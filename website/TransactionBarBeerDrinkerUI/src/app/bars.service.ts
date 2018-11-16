@@ -17,6 +17,11 @@ export interface BarMenuItem{
   attr: string;
 }
 
+export interface largestSpenders{
+  drinker: string;
+  amount: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,5 +40,9 @@ export class BarsService {
 
   getMenu(bar: string){
     return this.http.get<BarMenuItem[]>('/api/menu/'+bar);
+  }
+
+  getLargestSpenders(bar: string){
+    return this.http.get<largestSpenders[]>('/api/bar/spend/'+bar);
   }
 }

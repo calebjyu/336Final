@@ -44,10 +44,21 @@ export class DrinkerDetailsComponent implements OnInit {
           const beers = [];
           const amounts = [];
           data.forEach(favBeer=>{
-            beers.push(favBeer.name);
-            amounts.push(favBeer.count_of_beers);
+            beers.push(favBeer.item);
+            amounts.push(favBeer.count);
           });
-          this.renderChart(beers, amounts);
+          this.renderChart(beers, amounts, 'Favorite Beers', 'Beers', 'Number of Beers', 'bargraph');
+        }
+      )
+      drinkerService.getDrinkerSpend(this.drinkerName).subscribe(
+        data=>{
+          const spent = [];
+          const bars = [];
+          data.forEach(spends=>{
+            spent.push(spends.total);
+            bars.push(spends.bar);
+          });
+          this.renderChart(bars, spent, 'Amount spent at Bars', 'Bars', 'Amount', 'bargraph2');
         }
       )
     }))
@@ -56,24 +67,24 @@ export class DrinkerDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  renderChart(beers: string[] , amounts: number[]){
-    Highcharts.chart('bargraph', {
+  renderChart(xData: string[] , yData: number[], title:string, x:string, y:string ,id:string){
+    Highcharts.chart(id, {
       chart: {
         type: 'column'
       },
       title: {
-        text: 'Favorite beers'
+        text: title
       },
       xAxis: {
-        categories: beers,
+        categories: xData,
         title: {
-          text: 'Beer'
+          text: x
         }
       },
       yAxis: {
         min: 0,
         title: {
-          text: 'Number of beers'
+          text: y
         },
         labels: {
           overflow: 'justify'
@@ -93,9 +104,10 @@ export class DrinkerDetailsComponent implements OnInit {
         enabled: false
       },
       series: [{
-        data: amounts
+        data: yData
       }]
     });
+
   }
 
 }

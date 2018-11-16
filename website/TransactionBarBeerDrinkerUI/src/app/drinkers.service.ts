@@ -10,13 +10,21 @@ export interface Drinker{
 }
 
 export interface Transaction{
-  bill: string;
+  transaction_id: string;
   bar: string;
+  time: string;
+  date: string;
 }
 
 export interface favBeer{
-  name: string;
-  count_of_beers: number;
+  item: string;
+  count: number;
+}
+
+export interface spends{
+  total: string;
+  bar: string;
+  date: string;
 }
 
 @Injectable({
@@ -41,6 +49,10 @@ export class DrinkersService {
 
   getFavoriteBeers(drinker: string){
     return this.http.get<favBeer[]>('api/drinker/drinker/' +drinker);
+  }
+
+  getDrinkerSpend(drinker: string){
+    return this.http.get<spends[]>('api/drinker/spends/' +drinker);
   }
 
 }

@@ -12,12 +12,16 @@
       <tr>
         <th>Bill</th>
         <th>Bar</th>
+        <th>Time</th>
+        <th>Date</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-transaction>
         <tr>
-          <td>{{transaction.bill}}</td>
+          <td>{{transaction.transaction_id}}</td>
           <td><a routerLink="/bars/{{transaction.bar}}">{{transaction.bar}}</a></td>
+          <td>{{transaction.time}}</td>
+          <td>{{transaction.date}}</td>
         </tr>
       </ng-template>
   </p-table>
@@ -26,6 +30,10 @@
 <div class="container">
   <br>
   <div id="bargraph"></div>
+</div>
+<div class="container">
+  <br>
+  <div id="bargraph2"></div>
 </div>
 
 <br><br>

@@ -90,3 +90,17 @@ def get_drinker_fav_beer(drinker):
         return jsonify(database.get_drinker_fav_beer(drinker))
     except Exception as e:
         return make_response(str(e), 500)
+
+@app.route("/api/drinker/spends/<drinker>", methods=["GET"])
+def get_drinker_spend(drinker):
+    try:
+        return jsonify(database.get_drinker_spend(drinker))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route("/api/bar/spend/<bar>", methods=["GET"])
+def get_largest_spenders(bar):
+    try:
+        return jsonify(database.get_largest_spenders(bar))
+    except Exception as e:
+        return make_response(str(e), 500)

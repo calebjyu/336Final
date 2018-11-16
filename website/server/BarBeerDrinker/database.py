@@ -104,22 +104,37 @@ def get_bars_selling(beer):
 def get_transactions_of(drinker):
         with engine.connect() as con:
                 query = sql.text(
-                        'SELECT bill, bar\
-                        FROM transacts\
-                        WHERE drinker=:drinker\
-                        GROUP BY bar;')
+                        "select * from\
+                        (select b1.transaction_id, t1.bar, b1.time, b1.date from bills b1, transacts t1 \
+	                where (t1.drinker = :drinker and t1.bill = b1.transaction_id) \
+                        order by b1.time, b1.date) as s1\
+                        group by s1.bar;")
                 rs = con.execute(query, drinker=drinker)
                 return [dict(row) for row in rs]
 
 def get_drinker_fav_beer(drinker):
         with engine.connect() as con:
                 query = sql.text(
-                        'select * from\
-                                (select distinct i1.name, count(i1.name) as count_of_beers\
-                                from printed_on p1, transacts t1, items i1 \
-                                where p1.item = i1.name and i1.type = "beer" and p1.bill = t1.bill and t1.drinker = :drinker\
-                                group by t1.drinker) as f1\
-                        order by f1.count_of_beers desc;')
+                        "select f1.item, count(f1.item) as count from \
+                        (select p1.item from printed_on p1, transacts t1, items i1 \
+                        where (t1.drinker = :drinker and p1.bill = t1.bill) \
+                        and (p1.item = i1.name and i1.type = 'beer')) f1 group by f1.item")
                 rs = con.execute(query, drinker=drinker)
                 return [dict(row) for row in rs]
 
+def get_drinker_spend(drinker):
+        with engine.connect() as con:
+                query = sql.text(
+                        "select b1.total, t1.bar, b1.date\
+                        from bills b1, transacts t1\
+                        where (t1.drinker = :drinker and t1.bill = b1.transaction_id) \
+                        group by t1.bar")
+                rs = con.execute(query, drinker=drinker)
+                return [dict(row) for row in rs]
+
+def get_largest_spenders(bar):
+        with engine.connect() as con:
+                query = sql.text(
+                        "")
+                rs = con.execute(query, bar=bar)
+                return [dict(row) for row in rs]
