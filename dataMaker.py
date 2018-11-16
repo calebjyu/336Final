@@ -115,7 +115,7 @@ def test():
 	count = 0
 
 
-	
+
 	for ID in originalBills['trans_id']:
 		#choose a bar, choose a drinker, choose how many items and which items, find price
 		barNum = randint(0,len(barNames)-1)
@@ -171,6 +171,19 @@ for bar in barNames:
 		a = (day,bar,start,end)
 		if a not in hours:
 			hours.append(a)
+
+
+billsDF = pd.read_csv("submission/bills.csv")
+
+billsDF["date"] = ""
+dateData = pd.read_csv("random_date.csv")
+rDates = dateData['date']
+for row in billsDF:
+	i = randint(0, len(rDates))
+	date = rDates[i]
+	row["date"] += date
+
+billsDF.head()
 
 
 #output: dataframe
