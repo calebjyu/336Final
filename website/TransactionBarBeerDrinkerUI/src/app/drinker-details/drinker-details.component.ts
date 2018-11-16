@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DrinkersService, Drinker, Transaction } from '../drinkers.service';
 import { HttpResponse } from '@angular/common/http';
+declare const HighCharts: any;
 
 @Component({
   selector: 'app-drinker-details',
@@ -37,6 +38,14 @@ export class DrinkerDetailsComponent implements OnInit {
         data => {
           this.transaction = data;
         }
+      );
+      drinkerService.getFavoriteBeers(this.drinkerName).subscribe(
+        data=>{
+          const beers = [];
+          const amounts = [];
+          
+          this.renderChart(beers, amounts);
+        }
       )
     }))
   }
@@ -44,4 +53,47 @@ export class DrinkerDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
+  renderChart(beers: string[] , amounts: number[]){
+    HighCharts.chart('bargraph', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Frequenting count at bars'
+      },
+      xAxis: {
+        categories: beers,
+        title: {
+          text: 'Beer'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Number of customers'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: amounts
+      }]
+    });
+  }
+
 }
+

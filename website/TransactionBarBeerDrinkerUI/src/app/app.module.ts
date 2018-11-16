@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { TableModule } from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,7 +40,9 @@ import { ManfDetailsComponent } from './manf-details/manf-details.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     TableModule,
+    DropdownModule,
     AppRoutingModule
   ],
   providers: [HttpClient],

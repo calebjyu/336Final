@@ -17,6 +17,10 @@ const routes: Routes = [{
   pathMatch: 'full',
   component: WelcomeComponent
 },{
+  path: 'static',
+  pathMatch: 'full',
+  redirectTo: ''
+},{
   path: 'bars',
   pathMatch: 'full',
   component: BarPageComponent

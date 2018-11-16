@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {BeerService, Beer} from '../beer.service';
+import {BeerService, Beer, BeerLocation} from '../beer.service';
 import { HttpResponse } from '@angular/common/http';
+
+import {SelectItem} from 'primeng/components/common/selectitem';
 
 @Component({
   selector: 'app-beer-details',
@@ -12,7 +14,12 @@ export class BeerDetailsComponent implements OnInit {
 
   beerName: string;
   beerDetails: Beer;
-  //name : Beer;
+  beerLocations: BeerLocation[];
+  manufacturer: string;
+
+  filterOptions: SelectItem[];
+  sortField: string;
+  sortOrder: number;
 
   constructor(
     private beerService: BeerService,
@@ -33,15 +40,35 @@ export class BeerDetailsComponent implements OnInit {
           }
         }
       );
-      //beerService.getBeer(this.beerName).subscribe(
-      //  data => {
-      //    this.name = data;
-      //  }
-      //)
+      beerService.getBarsSelling(this.beerName).subscribe(
+        data => {
+          this.beerLocations = data
+        }
+      );
+
+      this.filterOptions =[
+        {
+          'label':'Low price first',
+          'value':'Low price'
+        },
+        {
+          'label':'High price first',
+          'value':'High price'
+        }
+      ]
+
     }))
   }
 
   ngOnInit() {
+  }
+
+  sortBy(selectedOption: string){
+    if(selectedOption === 'Low price'){
+      this.beerLocations.sort((a,b)=>{return a.price - b.price;})
+    }else if(selectedOption === 'High price'){
+      this.beerLocations.sort((a,b)=>{return b.price - a.price;})
+    }
   }
 
 }

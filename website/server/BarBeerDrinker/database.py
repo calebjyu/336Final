@@ -15,6 +15,12 @@ def get_drinkers():
                 rs = con.execute("SELECT * FROM drinkers;")
                 return [dict(row) for row in rs]
 
+def get_drinker(drinker):
+    with engine.connect() as con:
+        query = sql.text("SELECT name FROM drinkers where name = :drinker;")
+        rs = con.execute(query, drinker=drinker)
+        return [dict(row) for row in rs]
+
 def find_bar(name):
         with engine.connect() as con:
                 query = sql.text("SELECT * FROM bars WHERE name = :name;")
@@ -57,6 +63,12 @@ def get_beers():
         query = con.execute("SELECT * FROM items where type = 'beer';")
         return [dict(row) for row in query]
 
+def get_beer(beer):
+    with engine.connect() as con:
+        query = sql.text("SELECT name, attr FROM items where type = 'beer' and name = :beer;")
+        rs = con.execute(query, beer=beer)
+        return [dict(row) for row in rs]
+
 def get_bartenders():
     with engine.connect() as con:
         query = con.execute("SELECT * FROM bartenders;")
@@ -67,4 +79,43 @@ def get_manf():
         query = con.execute("SELECT DISTINCT attr FROM items where type = 'beer';")
         return [dict(row) for row in query]
 
+def get_manf_selling(beer):
+    with engine.connect() as con:
+        if beer is None:
+                query = con.execute("SELECT DISTINCT attr FROM items where type = 'beer';")
+                return [dict(row) for row in query]
+        query = sql.text("SELECT attr FROM items where type = 'beer' and name = :beer;")
+        return [dict(row) for row in query]
+
+def get_bars_selling(beer):
+        with engine.connect() as con:
+                query = sql.text(
+                        'SELECT a.bar, a.price\
+                        FROM sells as a, items as b\
+                        WHERE a.item = b.name and b.name = :beer\
+                        ORDER BY a.price;'
+                )
+                rs = con.execute(query,beer=beer)
+                results = [dict(row) for row in rs]
+                for i, _ in enumerate(results):
+                        results[i]['price']=float(results[i]['price'])
+                return results
+
+def get_transactions_of(drinker):
+        with engine.connect() as con:
+                query = sql.text(
+                        'SELECT bill\
+                        FROM transacts\
+                        WHERE drinker=:drinker;')
+                rs = con.execute(query, drinker=drinker)
+                return [dict(row) for row in rs]
+
+def get_drinker_fav_beer(drinker):
+        with engine.connect() as con:
+                query = sql.text(
+                        'SELECT t.beer\
+                        FROM transacts as t\
+                        WHERE t.drinker=:drinker;')
+                rs = con.execute(query, drinker=drinker)
+                return [dict(row) for row in rs]
 
