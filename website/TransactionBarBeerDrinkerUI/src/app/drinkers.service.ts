@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Beer} from './beer.service'
 
 export interface Drinker{
   name: string;
@@ -13,6 +12,11 @@ export interface Drinker{
 export interface Transaction{
   id: string;
   bar: string;
+}
+
+export interface favBeer{
+  beer: string;
+  amount: number;
 }
 
 @Injectable({
@@ -36,7 +40,7 @@ export class DrinkersService {
   }
 
   getFavoriteBeers(drinker: string){
-    return this.http.get<Beer[]>('api/drinker/' +drinker);
+    return this.http.get<favBeer[]>('api/drinker/drinker/' +drinker);
   }
 
 }

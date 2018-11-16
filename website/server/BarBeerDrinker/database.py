@@ -113,9 +113,12 @@ def get_transactions_of(drinker):
 def get_drinker_fav_beer(drinker):
         with engine.connect() as con:
                 query = sql.text(
-                        'SELECT t.beer\
-                        FROM transacts as t\
-                        WHERE t.drinker=:drinker;')
+                        'select * from\
+                        (select distinct t1.drinker, count(p1.item) as count_of_beers\
+                        from printed_on p1, transacts t1 \
+                        where p1.item =  and p1.bill = t1.bill\
+                        group by t1.drinker) as f1\
+                        order by f1.count_of_beers desc;')
                 rs = con.execute(query, drinker=drinker)
                 return [dict(row) for row in rs]
 

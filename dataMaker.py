@@ -3,23 +3,23 @@ import pandas as pd
 from random import randint
 
 #input csv files
-drinkers = pd.read_csv("drinkers.csv")
-bars = pd.read_csv("bars.csv")
-beer = pd.read_csv("beers.csv")
-softDrinks = pd.read_csv("soft_drinks.csv")
-food = pd.read_csv("food.csv")
-dates = pd.read_csv("dates2.csv")
-bartenders = pd.read_csv("bartenders.csv")
-originalBills = pd.read_csv("billsIncomplete.csv")
+#drinkers = pd.read_csv("drinkers.csv")
+#bars = pd.read_csv("bars.csv")
+#beer = pd.read_csv("beers.csv")
+#softDrinks = pd.read_csv("soft_drinks.csv")
+#food = pd.read_csv("food.csv")
+#dates = pd.read_csv("dates2.csv")
+#bartenders = pd.read_csv("bartenders.csv")
+#originalBills = pd.read_csv("billsIncomplete.csv")
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 start=['1','9','5']
 end=['9','5','1']
-barNames = bars['name']
-drinkerNames = drinkers['name']
-beerNames = beer['name']
-softDrinkNames = softDrinks['name']
-foodNames = food['name']
-bartenderNames = bartenders['name']
+#barNames = bars['name']
+#drinkerNames = drinkers['name']
+#beerNames = beer['name']
+#softDrinkNames = softDrinks['name']
+#foodNames = food['name']
+#bartenderNames = bartenders['name']
 
 def test():
 	frequentsRelation = []
@@ -149,28 +149,28 @@ def test():
 			day = days[i]
 			operatesRelation.append((bar,day))
 
-items = []
-for i in range(len(beerNames)):
-	b = beerNames[i]
-	manf = beer['manf'][i]
-	items.append((b,'beer',manf))
-for i in range(len(softDrinkNames)):
-	s = softDrinkNames[i]
-	brand = softDrinks['brand'][i]
-	items.append((s,'soft_drink',brand))
-for i in range(len(foodNames)):
-	f = foodNames[i]
-	calories = food['calories'][i]
-	items.append((f,'food',calories))
+	items = []
+	for i in range(len(beerNames)):
+		b = beerNames[i]
+		manf = beer['manf'][i]
+		items.append((b,'beer',manf))
+	for i in range(len(softDrinkNames)):
+		s = softDrinkNames[i]
+		brand = softDrinks['brand'][i]
+		items.append((s,'soft_drink',brand))
+	for i in range(len(foodNames)):
+		f = foodNames[i]
+		calories = food['calories'][i]
+		items.append((f,'food',calories))
 
-hours = []
-for bar in barNames:
-	for day in days:
-		start = "12:01 AM"
-		end = "11:59 PM"
-		a = (day,bar,start,end)
-		if a not in hours:
-			hours.append(a)
+	hours = []
+	for bar in barNames:
+		for day in days:
+			start = "12:01 AM"
+			end = "11:59 PM"
+			a = (day,bar,start,end)
+			if a not in hours:
+				hours.append(a)
 
 
 billsDF = pd.read_csv("submission/bills.csv")
@@ -191,7 +191,7 @@ billsDF.head()
 #print(pd.DataFrame(likesRelation))
 #print(pd.DataFrame(sellsRelation))
 #print(pd.DataFrame(inventoryRelation))
-#print(pd.DataFrame(bills))
+print(pd.DataFrame(billsDF))
 #print(pd.DataFrame(printedOnRelation))
 #print(pd.DataFrame(transactsRelation))
 #print(pd.DataFrame(worksRelation))
@@ -203,10 +203,10 @@ billsDF.head()
 #pd.DataFrame(likesRelation).to_csv("likes.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(sellsRelation).to_csv("sells.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(inventoryRelation).to_csv("inventory.csv",sep=',', index = False, encoding='utf-8')
-#pd.DataFrame(bills).to_csv("bills.csv",sep=',', index = False, encoding='utf-8')
-#pd.DataFrame(printedOnRelation).to_csv("printed_on.csv",sep=',', index = False, encoding='utf-8')
+pd.DataFrame(bills).to_csv("bills.csv",sep=',', index = False, encoding='utf-8')
+pd.DataFrame(printedOnRelation).to_csv("printed_on.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(transactsRelation).to_csv("transacts.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(worksRelation).to_csv("works.csv",sep=',', index = False, encoding='utf-8')
-pd.DataFrame(hours).to_csv("hours.csv",sep=',',index=False,encoding='utf-8')
+#pd.DataFrame(hours).to_csv("hours.csv",sep=',',index=False,encoding='utf-8')
 #pd.DataFrame(operatesRelation).to_csv("operates.csv",sep=',',index=False,encoding='utf-8')
-pd.DataFrame(items).to_csv("items.csv",sep=',',index=False,encoding='utf-8')
+#pd.DataFrame(items).to_csv("items.csv",sep=',',index=False,encoding='utf-8')

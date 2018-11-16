@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DrinkersService, Drinker, Transaction } from '../drinkers.service';
 import { HttpResponse } from '@angular/common/http';
-declare const HighCharts: any;
+declare const Highcharts: any;
 
 @Component({
   selector: 'app-drinker-details',
@@ -43,7 +43,10 @@ export class DrinkerDetailsComponent implements OnInit {
         data=>{
           const beers = [];
           const amounts = [];
-          
+          data.forEach(favBeer=>{
+            beers.push(favBeer.beer);
+            amounts.push(favBeer.amount);
+          });
           this.renderChart(beers, amounts);
         }
       )
@@ -54,12 +57,12 @@ export class DrinkerDetailsComponent implements OnInit {
   }
 
   renderChart(beers: string[] , amounts: number[]){
-    HighCharts.chart('bargraph', {
+    Highcharts.chart('bargraph', {
       chart: {
         type: 'column'
       },
       title: {
-        text: 'Frequenting count at bars'
+        text: 'Favorite beers'
       },
       xAxis: {
         categories: beers,
@@ -70,7 +73,7 @@ export class DrinkerDetailsComponent implements OnInit {
       yAxis: {
         min: 0,
         title: {
-          text: 'Number of customers'
+          text: 'Number of beers'
         },
         labels: {
           overflow: 'justify'
