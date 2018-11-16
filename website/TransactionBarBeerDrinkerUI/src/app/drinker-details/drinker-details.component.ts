@@ -44,8 +44,8 @@ export class DrinkerDetailsComponent implements OnInit {
           const beers = [];
           const amounts = [];
           data.forEach(favBeer=>{
-            beers.push(favBeer.beer);
-            amounts.push(favBeer.amount);
+            beers.push(favBeer.name);
+            amounts.push(favBeer.count_of_beers);
           });
           this.renderChart(beers, amounts);
         }

@@ -10,7 +10,7 @@ from random import randint
 #food = pd.read_csv("food.csv")
 #dates = pd.read_csv("dates2.csv")
 #bartenders = pd.read_csv("bartenders.csv")
-#originalBills = pd.read_csv("billsIncomplete.csv")
+originalBills = pd.read_csv("billsIncomplete")
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 start=['1','9','5']
 end=['9','5','1']
@@ -107,41 +107,6 @@ def test():
 					counter+=1
 				else:
 					continue
-
-
-	bills = []
-	transactsRelation = []
-	printedOnRelation = []
-	count = 0
-
-
-
-	for ID in originalBills['trans_id']:
-		#choose a bar, choose a drinker, choose how many items and which items, find price
-		barNum = randint(0,len(barNames)-1)
-		drinkerNum = randint(0,len(drinkerNames)-1)
-		itemNum = randint(1,5)
-		barSells = []
-		subtotal = 0
-		for x in sellsRelation:
-			if x[0] is barNames[barNum] and (x[1],x[2]) not in barSells:
-				barSells.append((x[1],x[2]))
-		items = []
-		for i in range(itemNum):
-			rand = randint(0,len(barSells)-1)
-			item = barSells[rand][0]
-			items.append(item)
-			price = barSells[rand][1]
-			subtotal += price
-		time = originalBills['time'][count]
-		count += 1
-		tip = subtotal * 0.15
-		tax = subtotal * 0.06
-		bills.append((ID,time,subtotal,tip,subtotal+tip+tax))
-		for i in items:
-			printedOnRelation.append((i,ID))
-		transactsRelation.append((drinkerNames[drinkerNum],ID,barNames[barNum]))
-
 	operatesRelation = []
 	for bar in barNames:
 		num = randint(4,7)
@@ -172,18 +137,56 @@ def test():
 			if a not in hours:
 				hours.append(a)
 
+	bills = []
+	transactsRelation = []
+	printedOnRelation = []
+	count = 0
 
-billsDF = pd.read_csv("submission/bills.csv")
 
-billsDF["date"] = ""
-dateData = pd.read_csv("random_date.csv")
-rDates = dateData['date']
-for row in billsDF:
+
+for ID in originalBills['trans_id']:
+	#choose a bar, choose a drinker, choose how many items and which items, find price
+	barNum = randint(0,len(barNames)-1)
+	drinkerNum = randint(0,len(drinkerNames)-1)
+	itemNum = randint(1,5)
+	barSells = []
+	subtotal = 0
+	for x in sellsRelation:
+		if x[0] is barNames[barNum] and (x[1],x[2]) not in barSells:
+			barSells.append((x[1],x[2]))
+	items = []
+	for i in range(itemNum):
+		rand = randint(0,len(barSells)-1)
+		item = barSells[rand][0]
+		items.append(item)
+		price = barSells[rand][1]
+		subtotal += price
+	time = originalBills['time'][count]
+	count += 1
+	tip = subtotal * 0.15
+	tax = subtotal * 0.06
+	dateData = pd.read_csv("random_date.csv")
+	rDates = dateData['date']
 	i = randint(0, len(rDates))
 	date = rDates[i]
-	row["date"] += date
+	bills.append((ID,date,time,subtotal,tip,subtotal+tip+tax))
+	for i in items:
+		printedOnRelation.append((i,ID))
+	transactsRelation.append((drinkerNames[drinkerNum],ID,barNames[barNum]))
+	
 
-billsDF.head()
+
+#billsDF = pd.read_csv("bills.csv")
+
+#billsDF["date"] = ""
+#dateData = pd.read_csv("random_date.csv")
+#rDates = dateData['date']
+#for row in billsDF:
+#	i = randint(0, len(rDates))
+#	date = rDates[i]
+#	row["date"] += date
+
+#billsDF.head()
 
 
 #output: dataframe
@@ -203,8 +206,8 @@ print(pd.DataFrame(billsDF))
 #pd.DataFrame(likesRelation).to_csv("likes.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(sellsRelation).to_csv("sells.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(inventoryRelation).to_csv("inventory.csv",sep=',', index = False, encoding='utf-8')
-pd.DataFrame(bills).to_csv("bills.csv",sep=',', index = False, encoding='utf-8')
-pd.DataFrame(printedOnRelation).to_csv("printed_on.csv",sep=',', index = False, encoding='utf-8')
+pd.DataFrame(bills).to_csv("billsNew.csv",sep=',', index = False, encoding='utf-8')
+pd.DataFrame(printedOnRelation).to_csv("printed_onNew.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(transactsRelation).to_csv("transacts.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(worksRelation).to_csv("works.csv",sep=',', index = False, encoding='utf-8')
 #pd.DataFrame(hours).to_csv("hours.csv",sep=',',index=False,encoding='utf-8')

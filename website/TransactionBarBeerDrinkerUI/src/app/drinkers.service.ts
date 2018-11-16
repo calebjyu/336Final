@@ -10,13 +10,13 @@ export interface Drinker{
 }
 
 export interface Transaction{
-  id: string;
+  bill: string;
   bar: string;
 }
 
 export interface favBeer{
-  beer: string;
-  amount: number;
+  name: string;
+  count_of_beers: number;
 }
 
 @Injectable({
