@@ -187,6 +187,9 @@ for index, row in billsDF.iterrows():
 	billsDF.at[index,'date'] = date
 billsDF.head()
 
+billsDF.to_csv("submission/bills.csv",sep=',', index = False, encoding='utf-8')
+
+
 
 #output: dataframe
 #print(pd.DataFrame(frequentsRelation))
