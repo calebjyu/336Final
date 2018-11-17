@@ -44,10 +44,10 @@ export class BarDetailsComponent implements OnInit {
           const spent = [];
           const drinkers = [];
           data.forEach(spends=>{
-            spent.push(spends.amount);
             drinkers.push(spends.drinker);
+            spent.push(spends.total_spent);
           });
-          this.renderChart(spent, drinkers, 'Largest Spenders', 'Drinker', 'Amount', 'bargraph');
+          this.renderChart(drinkers, spent, 'Largest Spenders', 'Drinker', 'Amount', 'bargraph');
         }
       )
     }))

@@ -19,7 +19,7 @@ export interface BarMenuItem{
 
 export interface largestSpenders{
   drinker: string;
-  amount: number;
+  total_spent: number;
 }
 
 @Injectable({

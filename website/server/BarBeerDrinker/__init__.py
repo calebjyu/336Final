@@ -128,7 +128,7 @@ def get_drinker_spend(drinker):
 @app.route("/api/bar/spend/<bar>", methods=["GET"])
 def get_largest_spenders(bar):
     try:
-        return jsonify(database.get_largest_spenders(bar))
+        return jsonify(database.top_10_spenders_in_bars(bar))
     except Exception as e:
         return make_response(str(e), 500)
 
