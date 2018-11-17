@@ -220,3 +220,44 @@ def who_drinks_beer_most(beer):
 #group by hour(str_to_date(b1.time, '%l:%i %p'))
 
 
+def city_where_sales_best(manf):
+    with engine.connect() as con:
+        query = sql.text(
+            "select * from\
+            (select b2.city, count(p1.item) as count_of_beers\
+            from printed_on p1, transacts t1, bars b2, items i1 where \
+            ((i1.attr = :manf and p1.bill = t1.bill) and i1.name = p1.item) and \
+            (t1.bar = b2.name) group by b2.city) f1 \
+            order by f1.count_of_beers desc")
+        rs = con.execute(query, manf=manf)
+        return [dict(row) for row in rs]
+#Working query for above in case there's a formatting issue
+#select * from
+#(select b2.city, count(p1.item) as count_of_beers
+#from printed_on p1, transacts t1, bars b2, items i1
+#where
+#((i1.attr = 'Anheuser-Busch' and p1.bill = t1.bill)
+# and i1.name = p1.item)
+#and
+#(t1.bar = b2.name)
+#group by b2.city) f1
+#order by f1.count_of_beers desc
+
+
+def where_top_drinkers_of_manf_live(manf):
+    with engine.connect() as con:
+        query = sql.text(
+            "select distinct d1.name, d1.address, d1.city, d1.state\
+            from likes l1, drinkers d1, items i1 \
+            where (l1.drinker = d1.name and l1.item = i1.name)\
+            and i1.attr = :manf")
+        rs = con.execute(query, manf=manf)
+        return [dict(row) for row in rs]
+#Query for the above function in case there's a formatting error
+#select distinct d1.name, d1.address, d1.city, d1.state
+#from likes l1, drinkers d1, items i1
+#where (l1.drinker = d1.name and l1.item = i1.name)
+#and i1.attr = 'Anheuser-Busch'
+
+
+
