@@ -319,4 +319,24 @@ def where_top_drinkers_of_manf_live(manf):
 #and i1.attr = 'Anheuser-Busch'
 
 
+def top_10_spenders_in_bars(bar):
+    with engine.connect() as con:
+        query = sql.text(
+            "select * from \
+            (select t1.drinker, sum(b1.total) as total_spent \
+            from bills b1, transacts t1 \
+            where (t1.bill = b1.transaction_id) and t1.bar = :bar)\
+            group by t1.drinker) f1 \
+            order by f1.total_spent desc limit 10")
+        rs = con.execute(query, bar=bar)
+        return [dict(row) for row in rs]
+#query for above in case of formatting issues
+
+#select * from
+#(select t1.drinker, sum(b1.total) as total_spent
+#from bills b1, transacts t1
+#where (t1.bill = b1.transaction_id and t1.bar = 'Batz Group')
+#group by t1.drinker) f1
+#order by f1.total_spent desc limit 10
+
 
