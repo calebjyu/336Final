@@ -350,3 +350,26 @@ def get_shift(bartender, bar):
                         )
                 rs = con.execute(query, bartender=bartender,bar=bar)
                 return [dict(row) for row in rs]
+
+def top_10_beers_of_bar_on_dow(bar, day):
+    with engine.connect() as con:
+        query = sql.text(
+            "select * from \
+            (select dayname(STR_TO_DATE(b1.date,'%d/%m/%Y')) as day_of_week, i1.attr, count(p1.item) as tot_beers \
+            from printed_on p1, bills b1, transacts t1, items i1 \
+            where ((b1.transaction_id = p1.bill and t1.bill = p1.bill)\
+             and t1.bar = :bar) and ((p1.item = i1.name and i1.type = 'beer')\
+             and dayname(STR_TO_DATE(b1.date,'%d/%m/%Y')) = :day) \
+             group by day_of_week, i1.attr) f1 \
+             order by f1.tot_beers desc limit 10")
+        rs = con.execute(query, bar=bar, day = day)
+        return [dict(row) for row in rs]
+#query for above in case of potential formatting issue
+#select * from
+#(select dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) as day_of_week, i1.attr, count(p1.item) as tot_beers
+#from printed_on p1, bills b1, transacts t1, items i1
+#where ((b1.transaction_id = p1.bill and t1.bill = p1.bill) and
+#       t1.bar = 'Dicki-Kuphal') and ((p1.item = i1.name and i1.type = 'beer')
+#                                     and dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) = 'Monday')
+#group by day_of_week, i1.attr) f1
+#order by f1.tot_beers desc limit 10
