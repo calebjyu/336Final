@@ -148,7 +148,7 @@ def get_when_is_beer_consumed_most(beer):
             group by hour(str_to_date(b1.time, '%l:%i $p'))")
         rs = con.execute(query, beer=beer)
         return [dict(row) for row in rs]
-
+#Query for above
 #select hour(str_to_date(b1.time, '%l:%i %p')) as hour, count(p1.item)
 #from bills b1, printed_on p1
 #where p1.item = 'Busch' and p1.bill = b1.transaction_id
@@ -166,7 +166,7 @@ def where_beer_is_sold_most(beer):
             order by f1.count_of_beers desc")
         rs = con.execute(query, beer=beer)
         return [dict(row) for row in rs]
-
+#query for above
 #select * from
 #(select distinct t1.bar, count(p1.item) as count_of_beers
 #from printed_on p1, transacts t1
@@ -185,8 +185,10 @@ def who_drinks_beer_most(beer):
             order by f1.count_of_beers")
         rs = con.execute(query, beer=beer)
         return [dict(row) for row in rs]
-
+#query for above for error checking
 #select hour(str_to_date(b1.time, '%l:%i %p')) as hour, count(p1.item)
 #from bills b1, printed_on p1
 #where p1.item = 'Busch' and p1.bill = b1.transaction_id
 #group by hour(str_to_date(b1.time, '%l:%i %p'))
+
+
