@@ -12,6 +12,7 @@ import { ModifyPageComponent } from './modify-page/modify-page.component';
 import { QueryPageComponent } from './query-page/query-page.component';
 import { BarPageComponent } from './bar-page/bar-page.component';
 import { BeerDetailsComponent } from './beer-details/beer-details.component';
+import { BartenderDetailsComponent } from './bartender-details/bartender-details.component';
 
 const routes: Routes = [{
   path: '',
@@ -33,6 +34,10 @@ const routes: Routes = [{
   path: 'bartenders',
   pathMatch: 'full',
   component: BartendersPageComponent
+},{
+  path: 'bartenders/:bartender',
+  pathMatch: 'full',
+  component: BartenderDetailsComponent
 },{
   path: 'beers',
   pathMatch: 'full',

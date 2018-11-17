@@ -73,6 +73,11 @@ def get_bartenders():
     with engine.connect() as con:
         query = con.execute("SELECT * FROM bartenders;")
         return [dict(row) for row in query]
+def get_bartender(bartender):
+    with engine.connect() as con:
+        query = sql.text("SELECT * FROM bartenders where name = :bartender;")
+        rs = con.execute(query, bartender=bartender)
+        return [dict(row) for row in rs]
 
 def get_manfs():
     with engine.connect() as con:
@@ -338,4 +343,10 @@ def top_10_spenders_in_bars(bar):
 #group by t1.drinker) f1
 #order by f1.total_spent desc limit 10
 
-
+def get_shift(bartender, bar):
+        with engine.connect() as con:
+                query = sql.text(
+                        ""
+                        )
+                rs = con.execute(query, bartender=bartender,bar=bar)
+                return [dict(row) for row in rs]

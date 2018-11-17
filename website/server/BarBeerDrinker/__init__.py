@@ -53,6 +53,14 @@ def get_when_is_beer_consumed_most(beer):
 def get_bartenders():
     return jsonify(database.get_bartenders())
 
+@app.route('/api/bartender/<bartender>', methods=["GET"])
+def get_bartender(bartender):
+    return jsonify(database.get_bartender(bartender))
+
+@app.route('/api/bartender/<bartender>/<bar>', methods=["GET"])
+def get_shift(bartender, bar):
+    return jsonify(database.get_shift(bartender,bar))
+
 @app.route('/api/manf', methods=["GET"])
 def get_manfs():
     return jsonify(database.get_manfs())

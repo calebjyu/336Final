@@ -22,6 +22,7 @@ import { BarPageComponent } from './bar-page/bar-page.component';
 import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
 import { BeerDetailsComponent } from './beer-details/beer-details.component';
 import { ManfDetailsComponent } from './manf-details/manf-details.component';
+import { BartenderDetailsComponent } from './bartender-details/bartender-details.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ManfDetailsComponent } from './manf-details/manf-details.component';
     BarPageComponent,
     DrinkerDetailsComponent,
     BeerDetailsComponent,
-    ManfDetailsComponent
+    ManfDetailsComponent,
+    BartenderDetailsComponent
   ],
   imports: [
     BrowserModule,
