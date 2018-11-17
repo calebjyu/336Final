@@ -1,3 +1,207 @@
-<p>
-  modify-page works!
-</p>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Modify</h1>
+    <button class="font-weight-light" (click)="displayDrinkers()">Drinkers</button>
+    <button class="font-weight-light" (click)="displayBars()">Bars</button>
+    <button class="font-weight-light" (click)="displayItems()">Items</button>
+    <button class="font-weight-light" (click)="displayBartenders()">Bartenders</button>
+    <button class="font-weight-light" (click)="displayBills()">Bills</button>
+  </div>
+</div>
+
+<div id="drinkers" class="container">
+  <input id="drinker_name" type="text" pInputText />
+  <input id="drinker_state" type="text" pInputText />
+  <input id="drinker_city" type="text" pInputText />
+  <input id="drinker_phone" type="text" pInputText />
+  <input id="drinker_address" type="text" pInputText />
+  <button pButton type="button" label="Update" (click)="update_drinker($event)"></button>
+  <br>
+  <div id="delete_drinker_div" hidden="true">
+      <input id="delete_drinker" type="text" pInputText />
+      <button pButton type="button" label="Submit" (click)="delete_drinker($event)"></button>
+  </div>
+  <br>
+  <p-table [value]="drinkers">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Delete?</th>
+          </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-drinker>
+        <tr>
+            <td>
+              <a routerLink="/drinker/{{drinker.name}}">              
+                {{drinker.name}}
+              </a>
+            </td>
+            <td>{{drinker.state}}</td>
+            <td>{{drinker.city}}</td>
+            <td>{{drinker.phone}}</td>
+            <td>{{drinker.address}}</td>
+            <td>
+              <button pButton type="button" label="X" (click)="confirm_drinker_delete()"></button>
+            </td>
+          </tr>
+    </ng-template>
+  </p-table>
+  
+</div>
+<div id="bars" hidden="true" class="container">
+    <input id="bar_name" type="text" pInputText />
+    <input id="bar_license" type="text" pInputText />
+    <input id="bar_state" type="text" pInputText />
+    <input id="bar_city" type="text" pInputText />
+    <input id="bar_phone" type="text" pInputText />
+    <input id="bar_address" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_bar($event)"></button>
+    <br>
+    <div id="delete_bar_div" hidden="true">
+        <input id="delete_bar" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_bar($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="bars">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>License</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-bar>
+            <tr>
+                <td>
+                  <a routerLink="/bars/{{bar.name}}">              
+                    {{bar.name}}
+                  </a>
+                </td>
+                <td>{{bar.license}}</td>
+                <td>{{bar.state}}</td>
+                <td>{{bar.city}}</td>
+                <td>{{bar.phone}}</td>
+                <td>{{bar.address}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_bar_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="items" hidden="true" class="container">
+    <input id="item_name" type="text" pInputText />
+    <input id="item_type" type="text" pInputText />
+    <input id="item_attr" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_item($event)"></button>
+    <br>
+    <div id="delete_item_div" hidden="true">
+        <input id="delete_item" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_item($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="item">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Attribute</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.attr}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_item_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="bartenders" hidden="true" class="container">
+    <input id="bartender_name" type="text" pInputText />
+    <input id="bartender_license" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_bartender($event)"></button>
+    <br>
+    <div id="delete_bartender_div" hidden="true">
+        <input id="delete_bartender" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_bartender($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="bartenders">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>License</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-bartender>
+            <tr>
+                <td>
+                  {{bartender.name}}
+                  <!--<a routerLink="/bartenders/{{bartender.name}}">              
+                    {{bartender.name}}
+                  </a>-->
+                </td>
+                <td>{{bartender.bartender_license}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_bartender_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="bills" hidden="true" class="container">
+    <input id="bill_id" type="text" pInputText />
+    <input id="bill_time" type="text" pInputText />
+    <input id="bill_date" type="text" pInputText />
+    <input id="bill_subtotal" type="text" pInputText />
+    <input id="bill_tip" type="text" pInputText />
+    <input id="bill_total" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_bill($event)"></button>
+    <br>
+    <div id="delete_bill_div" hidden="true">
+        <input id="delete_bill" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_bill($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="bills">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Time</th>
+                <th>Date</th>
+                <th>Subtotal</th>
+                <th>Tip</th>
+                <th>Total</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-bill>
+            <tr>
+                <td>{{bill.transaction_id}}</td>
+                <td>{{bill.time}}</td>
+                <td>{{bill.date}}</td>
+                <td>{{bill.subtotal}}</td>
+                <td>{{bill.tip}}</td>
+                <td>{{bill.total}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_bill_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<br><br>

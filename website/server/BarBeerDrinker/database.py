@@ -138,3 +138,31 @@ def get_largest_spenders(bar):
                         "")
                 rs = con.execute(query, bar=bar)
                 return [dict(row) for row in rs]
+
+def insert_into_drinkers(name,state,city,phone,address):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO drinkers (name,state,city,phone,address) \
+                        VALUES (:name,:state,:city,:phone,:address)'
+                )
+                rs = con.execute(query, name=name,state=state,city=city,phone=phone,address=address)
+                return 
+
+def delete_drinker(drinker):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM drinkers WHERE name=:drinker;"
+                )
+                rs = con.execute(query, drinker=drinker)
+                return
+
+def get_bills():
+        with engine.connect() as con:
+                query = con.execute("SELECT * FROM bills LIMIT 1000;")
+                return [dict(row) for row in query]
+
+
+def get_items():
+        with engine.connect() as con:
+                query = con.execute("SELECT * FROM items;")
+                return [dict(row) for row in query]

@@ -13,6 +13,12 @@ export interface BeerLocation{
   price: number;
 }
 
+export interface Item{
+  name: string;
+  type: string;
+  attr: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +33,10 @@ export class BeerService {
 
   getBeers(){
     return this.http.get<Beer[]>('/api/beer');
+  }
+
+  getItems(){
+    return this.http.get<Item[]>('/api/items');
   }
 
   getBeer(beer: string){

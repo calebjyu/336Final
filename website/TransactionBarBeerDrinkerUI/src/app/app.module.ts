@@ -5,6 +5,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { TableModule } from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
+import {ButtonModule, Button} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,6 +45,8 @@ import { ManfDetailsComponent } from './manf-details/manf-details.component';
     BrowserAnimationsModule,
     TableModule,
     DropdownModule,
+    ButtonModule,
+    InputTextModule,
     AppRoutingModule
   ],
   providers: [HttpClient],

@@ -104,3 +104,37 @@ def get_largest_spenders(bar):
         return jsonify(database.get_largest_spenders(bar))
     except Exception as e:
         return make_response(str(e), 500)
+
+@app.route("/api/addDrinker",methods=["POST"])
+def insert_into_drinkers():
+    try:
+        body = json.loads(request.data)
+        name = body["name"]
+        state = body["state"]
+        city = body["city"]
+        phone = body["phone"]
+        address = body["address"]
+        return jsonify(database.insert_into_drinkers(name,state,city,phone,address))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route("/api/deleteDrinker/<drinker>",methods=["GET"])
+def delete_drinker(drinker):
+    try:
+        return jsonify(database.delete_drinker(drinker))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route("/api/bills",methods=["GET"])
+def get_bills():
+    try:
+        return jsonify(database.get_bills())
+    except Exception as e:
+        return make_response(str(e), 500)   
+
+@app.route("/api/items",methods=["GET"])
+def get_items():
+    try:
+        return jsonify(database.get_items())
+    except Exception as e:
+        return make_response(str(e), 500)  
