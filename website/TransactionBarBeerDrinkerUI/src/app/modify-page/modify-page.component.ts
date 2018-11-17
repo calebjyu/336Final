@@ -62,7 +62,7 @@ export class ModifyPageComponent implements OnInit {
     window.location.reload();
   }
 
-  confirm__delete (){
+  /*confirm__delete (){
     let element: HTMLInputElement = document.getElementById("delete__div") as HTMLInputElement;
     element.hidden = false;
   }
@@ -86,7 +86,7 @@ export class ModifyPageComponent implements OnInit {
     this.modifyService.delete_(name).subscribe();
     element.hidden = true;
     window.location.reload();
-  }
+  }*/
 
   getDrinkers(){
     this.drinkersService.getDrinkers().subscribe(
