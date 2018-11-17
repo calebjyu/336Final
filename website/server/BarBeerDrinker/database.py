@@ -74,9 +74,14 @@ def get_bartenders():
         query = con.execute("SELECT * FROM bartenders;")
         return [dict(row) for row in query]
 
-def get_manf():
+def get_manfs():
     with engine.connect() as con:
         query = con.execute("SELECT DISTINCT attr FROM items where type = 'beer';")
+        return [dict(row) for row in query]
+def get_manf(manf):
+    with engine.connect() as con:
+        query = sql.text("SELECT DISTINCT attr FROM items where type = 'beer' and attr=:manf;")
+        rs = con.execute(query, manf=manf)
         return [dict(row) for row in query]
 
 def get_manf_selling(beer):
@@ -229,10 +234,11 @@ def get_items():
 def get_when_is_beer_consumed_most(beer):
     with engine.connect() as con:
         query = sql.text(
-            "Select hour(str_to_date(b1.time, '%l:%i $p')) as hour, count(p1.item)\
+            "Select hour(str_to_date(b1.time, '%l:%i %p')) as hour, count(p1.item) as amount\
             from bills b1, printed_on p1\
             where p1.item = :beer and p1.bill = b1.transaction_id\
-            group by hour(str_to_date(b1.time, '%l:%i $p'))")
+            group by hour(str_to_date(b1.time, '%l:%i %p'))\
+            order by hour")
         rs = con.execute(query, beer=beer)
         return [dict(row) for row in rs]
 #Query for above
@@ -250,7 +256,7 @@ def where_beer_is_sold_most(beer):
             from printed_on p1, transacts t1 \
             where p1.item = :beer and p1.bill = t1.bill \
             group by t1.bar) f1\
-            order by f1.count_of_beers desc")
+            order by f1.count_of_beers desc limit 10")
         rs = con.execute(query, beer=beer)
         return [dict(row) for row in rs]
 #query for above
@@ -269,7 +275,7 @@ def who_drinks_beer_most(beer):
             from printed_on p1, transacts t1\
             where p1.item = :beer and p1.bill = t1.bill \
             group by t1.drinker) f1 \
-            order by f1.count_of_beers")
+            order by f1.count_of_beers desc limit 10")
         rs = con.execute(query, beer=beer)
         return [dict(row) for row in rs]
 #query for above for error checking

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {Drinker} from './drinkers.service'
 
 import { HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +12,11 @@ export interface Beer{
 export interface BeerLocation{
   bar: string;
   price: number;
+}
+
+export interface Time{
+  hour:string;
+  amount:number;
 }
 
 export interface Item{
@@ -42,4 +48,17 @@ export class BeerService {
   getBeer(beer: string){
     return this.http.get<Beer>('/api/beer/' + beer);
   }
+
+  where_beer_is_sold_most(beer:string){
+    return this.http.get<BeerLocation[]>("/api/beer/sold_most/" + beer);
+  }
+
+  who_drinks_beer_most(beer){
+    return this.http.get<Drinker[]>('/api/beer/drinks_most/'+beer);
+  }
+  
+  get_when_is_beer_consumed_most(beer){
+    return this.http.get<Time[]>('/api/beer/time/'+beer);
+  }
+
 }

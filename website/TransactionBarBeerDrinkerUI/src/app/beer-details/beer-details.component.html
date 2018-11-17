@@ -34,3 +34,49 @@
   </p-table>
 </div>
 <br><br>
+
+<div class="container">
+  <h2 class="text-center font-weight-light">Bars that sell the most {{beerName}}</h2>
+  <br>
+  <p-table [value]="soldMost">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Bar</th>
+        <th>Amount of Beer</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-soldMost>
+        <tr>
+          <td>{{soldMost.bar}}</td>
+          <td>{{soldMost.count_of_beers}}</td>
+        </tr>
+      </ng-template>
+  </p-table>
+</div>
+<br><br>
+
+<div class="container">
+  <h2 class="text-center font-weight-light">Drinkers who drink the most {{beerName}}</h2>
+  <br>
+  <p-table [value]="drinkers">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Drinker</th>
+        <th>Amount of Beer</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-drinkers>
+        <tr>
+          <td>{{drinkers.drinker}}</td>
+          <td>{{drinkers.count_of_beers}}</td>
+        </tr>
+      </ng-template>
+  </p-table>
+</div>
+<br><br>
+
+<div class="container">
+  <br>
+  <div id="bargraph"></div>
+</div>
+<br><br>

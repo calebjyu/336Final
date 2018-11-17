@@ -34,13 +34,40 @@ def get_beer(beer):
     except Exception as e:
         return make_response(str(e), 500)
 
+@app.route("/api/beer/sold_most/<beer>",methods=["GET"])
+def where_beer_is_sold_most(beer):
+    return jsonify(database.where_beer_is_sold_most(beer))
+
+@app.route("/api/beer/drinks_most/<beer>",methods=["GET"])
+def who_drinks_beer_most(beer):
+    return jsonify(database.who_drinks_beer_most(beer))
+
+@app.route("/api/beer/time/<beer>", methods=["GET"])
+def get_when_is_beer_consumed_most(beer):
+    try:
+        return jsonify(database.get_when_is_beer_consumed_most(beer))
+    except Exception as e:
+        return make_response(str(e), 500)
+
 @app.route('/api/bartender', methods=["GET"])
 def get_bartenders():
     return jsonify(database.get_bartenders())
 
 @app.route('/api/manf', methods=["GET"])
-def get_manf():
+def get_manfs():
+    return jsonify(database.get_manfs())
+
+@app.route('/api/manf/<manf>', methods=["GET"])
+def get_manf(manf):
     return jsonify(database.get_manf())
+
+@app.route('/api/manf/cities/<manf>', methods=["GET"])
+def city_where_sales_best(manf):
+    return jsonify(database.city_where_sales_best(manf))
+
+@app.route('/api/manf/live/<manf>',methods=["GET"])
+def where_top_drinkers_of_manf_live(manf):
+    return jsonify(database.where_top_drinkers_of_manf_live(manf))
 
 @app.route('/api/transactions/<drinker>', methods=["GET"])
 def get_transactions_of(drinker):

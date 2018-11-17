@@ -7,6 +7,7 @@ import { BeersPageComponent } from './beers-page/beers-page.component';
 import { DrinkerPageComponent } from './drinker-page/drinker-page.component';
 import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
 import { ManfPageComponent } from './manf-page/manf-page.component';
+import { ManfDetailsComponent } from './manf-details/manf-details.component';
 import { ModifyPageComponent } from './modify-page/modify-page.component';
 import { QueryPageComponent } from './query-page/query-page.component';
 import { BarPageComponent } from './bar-page/bar-page.component';
@@ -52,6 +53,10 @@ const routes: Routes = [{
   path: 'manf',
   pathMatch: 'full',
   component: ManfPageComponent
+},{
+  path: 'manf/:manf',
+  pathMatch: 'full',
+  component: ManfDetailsComponent
 },{
   path: 'modify',
   pathMatch: 'full',
