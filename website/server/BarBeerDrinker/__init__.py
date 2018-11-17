@@ -138,3 +138,73 @@ def get_items():
         return jsonify(database.get_items())
     except Exception as e:
         return make_response(str(e), 500)  
+
+@app.route("/api/addBar",methods=["POST"])
+def insert_into_bars():
+    try:
+        body = json.loads(request.data)
+        name = body["name"]
+        licens = body["license"]
+        state = body["state"]
+        city = body["city"]
+        phone = body["phone"]
+        address = body["address"]
+        return jsonify(database.insert_into_bars(name,licens,state,city,phone,address))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deleteBar/<bar>",methods=["GET"])
+def delete_bar(bar):
+    try:
+        return jsonify(database.delete_bar(bar))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addItem",methods=["POST"])
+def insert_into_items():
+    try:
+        body = json.loads(request.data)
+        name = body["name"]
+        typ=body["type"]
+        attr=body["attr"]
+        return jsonify(database.insert_into_items(name,typ,attr))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deleteItem/<item>",methods=["GET"])
+def delete_item(item):
+    try:
+        return jsonify(database.delete_item(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addBartender",methods=["POST"])
+def insert_into_bartenders():
+    try:
+        body = json.loads(request.data)
+        name = body["name"]
+        licens = body["bartender_license"]
+        return jsonify(database.insert_into_bartenders(name,licens))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deleteBartender/<bartender>",methods=["GET"])
+def delete_bartender(bartender):
+    try:
+        return jsonify(database.delete_bartender(bartender))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addBill",methods=["POST"])
+def insert_into_bills():
+    try:
+        body = json.loads(request.data)
+        transaction_id = body["transaction_id"]
+        time = body["time"]
+        subtotal = body["subtotal"]
+        tip = body["tip"]
+        t = body["total"]
+        d = body["date"]
+        return jsonify(database.insert_into_bills(transaction_id,time,subtotal,tip,t,d))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deleteBill/<bill>",methods=["GET"])
+def delete_bill(bill):
+    try:
+        return jsonify(database.delete_bill(bill))
+    except Exception as e:
+        return make_response(str(e), 500)

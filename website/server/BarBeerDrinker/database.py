@@ -147,13 +147,72 @@ def insert_into_drinkers(name,state,city,phone,address):
                 )
                 rs = con.execute(query, name=name,state=state,city=city,phone=phone,address=address)
                 return 
-
 def delete_drinker(drinker):
         with engine.connect() as con:
                 query = sql.text(
                         "DELETE FROM drinkers WHERE name=:drinker;"
                 )
                 rs = con.execute(query, drinker=drinker)
+                return
+def insert_into_bars(name,licens,state,city,phone,address):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO bars (name,license,state,city,phone,address) \
+                        VALUES (:name,:licens,:state,:city,:phone,:address)'
+                )
+                rs = con.execute(query, name=name,licens=licens,state=state,city=city,phone=phone,address=address)
+                return 
+def delete_bar(bar):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM bars WHERE name=:bar;"
+                )
+                rs = con.execute(query, bar=bar)
+                return
+def insert_into_items(name,type,attr):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO items (name,type,attr) \
+                        VALUES (:name,:type,:attr)'
+                )
+                rs = con.execute(query, name=name,type=type,attr=attr)
+                return 
+def delete_item(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM items WHERE name=:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_into_bartenders(name,licens):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO bartenders (name,bartender_license) \
+                        VALUES (:name,:licens)'
+                )
+                rs = con.execute(query, name=name,licens=licens)
+                return 
+def delete_bartender(name):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM bartenders WHERE name=:name;"
+                )
+                rs = con.execute(query, name=name)
+                return
+def insert_into_bills(name,time,subtotal,tip,total,date):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO bills (transaction_id,time,subtotal,tip,total,date) \
+                        VALUES (:name,:time,:subtotal,:tip,:total,:date)'
+                )
+                rs = con.execute(query, name=name,time=time,subtotal=subtotal,tip=tip,total=total,date=date)
+                return 
+def delete_bill(bill):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM bills WHERE transaction_id=:bill;"
+                )
+                rs = con.execute(query, bill=bill)
                 return
 
 def get_bills():

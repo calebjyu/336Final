@@ -16,7 +16,7 @@
   <input id="drinker_phone" type="text" pInputText />
   <input id="drinker_address" type="text" pInputText />
   <button pButton type="button" label="Update" (click)="update_drinker($event)"></button>
-  <br>
+  <br><br>
   <div id="delete_drinker_div" hidden="true">
       <input id="delete_drinker" type="text" pInputText />
       <button pButton type="button" label="Submit" (click)="delete_drinker($event)"></button>
@@ -60,7 +60,7 @@
     <input id="bar_phone" type="text" pInputText />
     <input id="bar_address" type="text" pInputText />
     <button pButton type="button" label="Update" (click)="update_bar($event)"></button>
-    <br>
+    <br><br>
     <div id="delete_bar_div" hidden="true">
         <input id="delete_bar" type="text" pInputText />
         <button pButton type="button" label="Submit" (click)="delete_bar($event)"></button>
@@ -107,7 +107,7 @@
         <input id="delete_item" type="text" pInputText />
         <button pButton type="button" label="Submit" (click)="delete_item($event)"></button>
     </div>
-    <br>
+    <br><br>
     <p-table [value]="item">
         <ng-template pTemplate="header">
             <tr>
@@ -133,7 +133,7 @@
     <input id="bartender_name" type="text" pInputText />
     <input id="bartender_license" type="text" pInputText />
     <button pButton type="button" label="Update" (click)="update_bartender($event)"></button>
-    <br>
+    <br><br>
     <div id="delete_bartender_div" hidden="true">
         <input id="delete_bartender" type="text" pInputText />
         <button pButton type="button" label="Submit" (click)="delete_bartender($event)"></button>
@@ -171,7 +171,7 @@
     <input id="bill_tip" type="text" pInputText />
     <input id="bill_total" type="text" pInputText />
     <button pButton type="button" label="Update" (click)="update_bill($event)"></button>
-    <br>
+    <br><br>
     <div id="delete_bill_div" hidden="true">
         <input id="delete_bill" type="text" pInputText />
         <button pButton type="button" label="Submit" (click)="delete_bill($event)"></button>
