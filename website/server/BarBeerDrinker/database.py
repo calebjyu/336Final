@@ -343,21 +343,46 @@ def top_10_beers_of_bar_on_dow(bar, day):
     with engine.connect() as con:
         query = sql.text(
             "select * from \
-            (select dayname(STR_TO_DATE(b1.date,'%d/%m/%Y')) as day_of_week, i1.attr, count(p1.item) as tot_beers \
+            (select i1.attr, count(p1.item) as tot_beers \
             from printed_on p1, bills b1, transacts t1, items i1 \
             where ((b1.transaction_id = p1.bill and t1.bill = p1.bill)\
              and t1.bar = :bar) and ((p1.item = i1.name and i1.type = 'beer')\
              and dayname(STR_TO_DATE(b1.date,'%d/%m/%Y')) = :day) \
-             group by day_of_week, i1.attr) f1 \
+             group by dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')), i1.attr) f1 \
              order by f1.tot_beers desc limit 10")
         rs = con.execute(query, bar=bar, day = day)
         return [dict(row) for row in rs]
 #query for above in case of potential formatting issue
+
 #select * from
-#(select dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) as day_of_week, i1.attr, count(p1.item) as tot_beers
-#from printed_on p1, bills b1, transacts t1, items i1
+#(select i1.attr, count(p1.item) as tot_beers
+from printed_on p1, bills b1, transacts t1, items i1
 #where ((b1.transaction_id = p1.bill and t1.bill = p1.bill) and
-#       t1.bar = 'Dicki-Kuphal') and ((p1.item = i1.name and i1.type = 'beer')
+ #      t1.bar = 'Dicki-Kuphal') and ((p1.item = i1.name and i1.type = 'beer')
 #                                     and dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) = 'Monday')
-#group by day_of_week, i1.attr) f1
+#group by dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')), i1.attr) f1
 #order by f1.tot_beers desc limit 10
+
+def busiest_time_of_day(bar):
+    with engine.connect() as con:
+        query = sql.text(
+            "select * from \
+            (select hour(str_to_date(b1.time), '%l:%i %p')) as hour, count(b1.transaction_id) as total_orders\
+            from bills b1, transacts t1\
+            where t1.bill = b1.transaction_id\
+            and t1.bar = :bar  \
+            group by hour(str_to_date(b1.time), '%l:%i %p'))) f1 \
+            order by total_orders desc")
+        rs = con.execute(query, bar=bar)
+        return [dict(row) for row in rs]
+
+#Query for above for potential future formatting errors
+#select * from
+#(select hour(str_to_date(b1.time, '%l:%i %p')) as hour, count(b1.transaction_id) as total_orders
+#from bills b1, transacts t1
+#where t1.bill = b1.transaction_id
+#                and t1.bar = 'Abshire Group'
+#group by hour(str_to_date(b1.time, '%l:%i %p'))) f1
+#order by total_orders desc
+
+
