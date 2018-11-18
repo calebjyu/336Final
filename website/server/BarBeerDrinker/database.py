@@ -620,8 +620,42 @@ def top_ten_bars_for_manf_per_day(manf, day):
 #order by f1.tot_beers desc limit 10
 
 
+def top_ten_bars_for_manf_per_day(bTender, bar):
+    with engine.connect() as con:
+        query = sql.text(
+            "select * from \
+            (Select w1.bartender, w1.date as day_of_week, w1.start, w1.end, \
+            i1.attr, count(i1.name)\
+            from works 1, transacts t1, bills b1, printed_on p1, items i1 \
+            where (((w1.bartender = :bTender and w1.bar = :bar) \
+            and (b1.transaction_id = p1.bill and t1.bill = b1.transaction_id)) \
+            and w1.bar and t1.bar) \
+            and (((p1.item = i1.name) amd (i1.type = 'beer')) and \
+            (dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) = w1.date) and \
+             (hour(str_to_date(b1.time, '%l:%i %p')) >= w1.start \
+            or  hour(str_to_date(b1.time, '%l:%i %p')) <= w1.end)) \
+            group by w1.date,i1.attr) r1 \
+        order by \
+        FIELD(day_of_week, 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY',\
+              'FRIDAY', 'SATURDAY', 'SUNDAY')")
 
-
+        rs = con.execute(query, bTender = bTender, bar = bar)
+        return [dict(row) for row in rs]
+#Query in case there's a formatting issue
+#select * from
+#(Select w1.bartender, w1.date as day_of_week, w1.start, w1.end,i1.attr, count(i1.name)
+#from works w1, transacts t1, bills b1, printed_on p1, items i1
+#where (((w1.bartender = 'Arny Portriss' and
+#w1.bar = 'Abshire Group') and
+#        (b1.transaction_id = p1.bill and t1.bill = b1.transaction_id))
+#       and w1.bar = t1.bar)
+#and (((p1.item = i1.name) and (i1.type = 'beer')) and
+#     (dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) = w1.date) and
+#     (hour(str_to_date(b1.time, '%l:%i %p')) >= w1.start
+#      or hour(str_to_date(b1.time, '%l:%i %p')) <= w1.end))
+#group by w1.date, i1.attr) r1
+#order by
+#FIELD(day_of_week, 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')
 
 
 
