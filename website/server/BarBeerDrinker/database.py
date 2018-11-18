@@ -398,7 +398,7 @@ def busiest_time_of_day(bar):
 #order by total_orders desc
 
 
-def busiest_time_of_day(bar):
+def busiest_times_of_week(bar):
     with engine.connect() as con:
         query = sql.text(
             "select * from \
