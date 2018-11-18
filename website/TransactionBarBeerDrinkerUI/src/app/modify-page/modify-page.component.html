@@ -6,6 +6,15 @@
     <button class="font-weight-light" (click)="displayItems()">Items</button>
     <button class="font-weight-light" (click)="displayBartenders()">Bartenders</button>
     <button class="font-weight-light" (click)="displayBills()">Bills</button>
+    <button class="font-weight-light" (click)="displayFrequents()">Frequents</button>
+    <button class="font-weight-light" (click)="displayHours()">Hours</button>
+    <button class="font-weight-light" (click)="displayInventory()">Inventory</button>
+    <button class="font-weight-light" (click)="displayLikes()">Likes</button>
+    <button class="font-weight-light" (click)="displayOperates()">Operates</button>
+    <button class="font-weight-light" (click)="displayPrintedOn()">Printed On</button>
+    <button class="font-weight-light" (click)="displaySells()">Sells</button>
+    <button class="font-weight-light" (click)="displayTransacts()">Transacts</button>
+    <button class="font-weight-light" (click)="displayWorks()">Works</button>
   </div>
 </div>
 
@@ -151,9 +160,6 @@
             <tr>
                 <td>
                   {{bartender.name}}
-                  <!--<a routerLink="/bartenders/{{bartender.name}}">              
-                    {{bartender.name}}
-                  </a>-->
                 </td>
                 <td>{{bartender.bartender_license}}</td>
                 <td>
@@ -199,6 +205,294 @@
                 <td>{{bill.total}}</td>
                 <td>
                     <button pButton type="button" label="X" (click)="confirm_bill_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="frequents" hidden="true" class="container">
+    <input id="frequents_attr1" type="text" pInputText />
+    <input id="frequents_attr2" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_frequents($event)"></button>
+    <br><br>
+    <div id="delete_frequents_div" hidden="true">
+        <input id="delete_frequents" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_frequents($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="frequents">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Drinker</th>
+                <th>Bar</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-frequents>
+            <tr>
+                <td>{{frequents.attr1}}</td>
+                <td>{{frequents.attr2}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_frequents_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="hours" hidden="true" class="container">
+    <input id="hours_attr1" type="text" pInputText />
+    <input id="hours_attr2" type="text" pInputText />
+    <input id="hours_attr3" type="text" pInputText />
+    <input id="hours_attr4" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_hours($event)"></button>
+    <br><br>
+    <div id="delete_hours_div" hidden="true">
+        <input id="delete_hours" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_hours($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="hours">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Day</th>
+                <th>Bar</th>
+                <th>Open</th>
+                <th>Close</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-hours>
+            <tr>
+                <td>{{hours.attr1}}</td>
+                <td>{{hours.attr2}}</td>
+                <td>{{hours.attr3}}</td>
+                <td>{{hours.attr4}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_hours_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="inventory" hidden="true" class="container">
+    <input id="inventory_attr1" type="text" pInputText />
+    <input id="inventory_attr2" type="text" pInputText />
+    <input id="inventory_attr3" type="text" pInputText />
+    <input id="inventory_attr4" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_inventory($event)"></button>
+    <br><br>
+    <div id="delete_inventory_div" hidden="true">
+        <input id="delete_inventory" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_inventory($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="inventory">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Bar</th>
+                <th>Item</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-inventory>
+            <tr>
+                <td>{{inventory.attr1}}</td>
+                <td>{{inventory.attr2}}</td>
+                <td>{{inventory.attr3}}</td>
+                <td>{{inventory.attr4}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_inventory_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="likes" hidden="true" class="container">
+    <input id="likes_attr1" type="text" pInputText />
+    <input id="likes_attr2" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_likes($event)"></button>
+    <br><br>
+    <div id="delete_likes_div" hidden="true">
+        <input id="delete_likes" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_likes($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="likes">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Drinker</th>
+                <th>Item</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-likes>
+            <tr>
+                <td>{{likes.attr1}}</td>
+                <td>{{likes.attr2}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_likes_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="operates" hidden="true" class="container">
+    <input id="operates_attr1" type="text" pInputText />
+    <input id="operates_attr2" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_operates($event)"></button>
+    <br><br>
+    <div id="delete_operates_div" hidden="true">
+        <input id="delete_operates" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_operates($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="operates">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Bar</th>
+                <th>Hour</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-operates>
+            <tr>
+                <td>{{operates.attr1}}</td>
+                <td>{{operates.attr2}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_operates_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="printed_on" hidden="true" class="container">
+    <input id="printed_on_attr1" type="text" pInputText />
+    <input id="printed_on_attr2" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_printed_on($event)"></button>
+    <br><br>
+    <div id="delete_printed_on_div" hidden="true">
+        <input id="delete_printed_on" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_printed_on($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="printed_on">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Item</th>
+                <th>Bill</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-printed_on>
+            <tr>
+                <td>{{printed_on.attr1}}</td>
+                <td>{{printed_on.attr2}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_printed_on_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="transacts" hidden="true" class="container">
+    <input id="transacts_attr1" type="text" pInputText />
+    <input id="transacts_attr2" type="text" pInputText />
+    <input id="transacts_attr3" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_transacts($event)"></button>
+    <br><br>
+    <div id="delete_transacts_div" hidden="true">
+        <input id="delete_transacts" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_transacts($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="transacts">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Drinker</th>
+                <th>Bill</th>
+                <th>Bar</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-transacts>
+            <tr>
+                <td>{{transacts.attr1}}</td>
+                <td>{{transacts.attr2}}</td>
+                <td>{{transacts.attr3}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_transacts_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="works" hidden="true" class="container">
+    <input id="works_attr1" type="text" pInputText />
+    <input id="works_attr2" type="text" pInputText />
+    <input id="works_attr3" type="text" pInputText />
+    <input id="works_attr4" type="text" pInputText />
+    <input id="works_attr5" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_works($event)"></button>
+    <br><br>
+    <div id="delete_works_div" hidden="true">
+        <input id="delete_works" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_works($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="works">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Bar</th>
+                <th>Bartender</th>
+                <th>Date</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-works>
+            <tr>
+                <td>{{works.attr1}}</td>
+                <td>{{works.attr2}}</td>
+                <td>{{works.attr3}}</td>
+                <td>{{works.attr4}}</td>
+                <td>{{works.attr5}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_works_delete()"></button>
+                </td>
+              </tr>
+        </ng-template>
+      </p-table>
+</div>
+<div id="sells" hidden="true" class="container">
+    <input id="sells_attr1" type="text" pInputText />
+    <input id="sells_attr2" type="text" pInputText />
+    <input id="sells_attr3" type="text" pInputText />
+    <button pButton type="button" label="Update" (click)="update_sells($event)"></button>
+    <br><br>
+    <div id="delete_sells_div" hidden="true">
+        <input id="delete_sells" type="text" pInputText />
+        <button pButton type="button" label="Submit" (click)="delete_sells($event)"></button>
+    </div>
+    <br>
+    <p-table [value]="sells">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Bar</th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Delete?</th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sells>
+            <tr>
+                <td>{{sells.attr1}}</td>
+                <td>{{sells.attr2}}</td>
+                <td>{{sells.attr3}}</td>
+                <td>
+                    <button pButton type="button" label="X" (click)="confirm_sells_delete()"></button>
                 </td>
               </tr>
         </ng-template>

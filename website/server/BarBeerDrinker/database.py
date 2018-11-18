@@ -4,6 +4,179 @@ from BarBeerDrinker import config
 
 engine = create_engine(config.database_uri)
 
+def insert_frequents(attr1,attr2):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO frequents () \
+                        VALUES (:attr1,:attr2)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2)
+                return 
+def delete_frequents(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM frequents WHERE drinker=:item or bar=:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_hours(attr1,attr2,attr3,attr4):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO hours () \
+                        VALUES (:attr1,:attr2,:attr3,:attr4)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2,attr3=attr3,attr4=attr4)
+                return 
+def delete_hours(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM hours WHERE day=:item or bar=:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_inventory(attr1,attr2,attr3,attr4):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO inventory (bar,item,amount,date) \
+                        VALUES (:attr1,:attr2,:attr3,:attr4)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2,attr3=attr3,attr4=attr4)
+                return 
+def delete_inventory(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM inventory WHERE bar=:item or item=:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_likes(attr1,attr2):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO likes () \
+                        VALUES (:attr1,:attr2)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2)
+                return 
+def delete_likes(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM likes WHERE drinker=:item or item=:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_operates(attr1,attr2):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO operates () \
+                        VALUES (:attr1,:attr2)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2)
+                return 
+def delete_operates(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM operates WHERE bar=:item or hour-:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_printed_on(attr1,attr2):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO printed_on () \
+                        VALUES (:attr1,:attr2)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2)
+                return 
+def delete_printed_on(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM printed_on WHERE item=:item or bill=:bill;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_sells(attr1,attr2,attr3):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO sells () \
+                        VALUES (:attr1,:attr2,:attr3)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2,attr3=attr3)
+                return 
+def delete_sells(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM sells WHERE bar=:item or item=:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_transacts(attr1,attr2,attr3):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO transacts () \
+                        VALUES (:attr1,:attr2,:attr3)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2,attr3=attr3)
+                return 
+def delete_transacts(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM transacts WHERE drinker=:item or bill=:item or bar=:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+def insert_works(attr1,attr2,attr3,attr4,attr5):
+        with engine.connect() as con:
+                query = sql.text(
+                        'INSERT INTO works () \
+                        VALUES (:attr1,:attr2,:attr3,:attr4,:attr5)'
+                )
+                rs = con.execute(query, attr1=attr1,attr2=attr2,attr3=attr3,attr4=attr4,attr5=attr5)
+                return 
+def delete_works(item):
+        with engine.connect() as con:
+                query = sql.text(
+                        "DELETE FROM works WHERE bar=:item or bartender=:item or date=:item;"
+                )
+                rs = con.execute(query, item=item)
+                return
+
+def get_frequents():
+    with engine.connect() as con:
+        rs = con.execute("SELECT drinker as attr1, bar as attr2 FROM frequents;")
+        return [dict(row) for row in rs]
+def get_hours():
+    with engine.connect() as con:
+        rs = con.execute("SELECT day as attr1,bar as attr2,open as attr3,close as attr4 FROM hours;")
+        return [dict(row) for row in rs]
+def get_inventory():
+    with engine.connect() as con:
+        rs = con.execute("SELECT bar as attr1,item as attr2, amount as attr3,date as attr4 FROM inventory;")
+        return [dict(row) for row in rs]
+def get_likes():
+    with engine.connect() as con:
+        rs = con.execute("SELECT drinker as attr1,item as attr2 FROM likes;")
+        return [dict(row) for row in rs]
+def get_operates():
+    with engine.connect() as con:
+        rs = con.execute("SELECT bar as attr1,hour as attr2 FROM operates;")
+        return [dict(row) for row in rs]
+def get_printed_on():
+    with engine.connect() as con:
+        rs = con.execute("SELECT item as attr1,bill as attr2 FROM printed_on limit 1000;")
+        return [dict(row) for row in rs]
+def get_sells():
+    with engine.connect() as con:
+        rs = con.execute("SELECT bar as attr1,item as attr2,price as attr3 FROM sells;")
+        return [dict(row) for row in rs]
+def get_transacts():
+    with engine.connect() as con:
+        rs = con.execute("SELECT drinker as attr1,bill as attr2,bar as attr3 FROM transacts limit 1000;")
+        return [dict(row) for row in rs]
+def get_works():
+    with engine.connect() as con:
+        rs = con.execute("SELECT bar as attr1,bartender as attr2,date as attr3,start as attr4,end as attr5 FROM works limit 1000;")
+        return [dict(row) for row in rs]
+
 def get_bars():
     #Connect to DB and retrive a list of all the bars and stuff
     with engine.connect() as con:

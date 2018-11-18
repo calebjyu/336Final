@@ -8,6 +8,181 @@ from BarBeerDrinker import database
 
 app = Flask(__name__)
 
+@app.route("/api/addfrequents",methods=["POST"])
+def insert_frequents():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        return jsonify(database.insert_frequents(attr1,attr2))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deletefrequents/<item>",methods=["GET"])
+def delete_frequents(item):
+    try:
+        return jsonify(database.delete_frequents(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addhours",methods=["POST"])
+def insert_hours():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        attr3 = body["attr3"]
+        attr4 = body["attr4"]
+        return jsonify(database.insert_hours(attr1,attr2,attr3,attr4))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deletehours/<item>",methods=["GET"])
+def delete_hours(item):
+    try:
+        return jsonify(database.delete_hours(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addinventory",methods=["POST"])
+def insert_inventory():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        attr3 = body["attr3"]
+        attr4 = body["attr4"]
+        return jsonify(database.insert_inventory(attr1,attr2,attr3,attr4))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deleteinventory/<item>",methods=["GET"])
+def delete_inventory(item):
+    try:
+        return jsonify(database.delete_inventory(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addlikes",methods=["POST"])
+def insert_likes():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        return jsonify(database.insert_likes(attr1,attr2))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deletelikes/<item>",methods=["GET"])
+def delete_likes(item):
+    try:
+        return jsonify(database.delete_likes(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addoperates",methods=["POST"])
+def insert_operates():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        return jsonify(database.insert_operates(attr1,attr2))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deleteoperates/<item>",methods=["GET"])
+def delete_operates(item):
+    try:
+        return jsonify(database.delete_operates(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addprinted_on",methods=["POST"])
+def insert_printed_on():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        return jsonify(database.insert_printed_on(attr1,attr2))
+    except Exception as e:
+        alert("Violates foreign key constraints.");
+        return make_response(str(e), 500)
+@app.route("/api/deleteprinted_on/<item>",methods=["GET"])
+def delete_printed_on(item):
+    try:
+        return jsonify(database.delete_printed_on(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addsells",methods=["POST"])
+def insert_sells():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        attr3 = body["attr3"]
+        return jsonify(database.insert_sells(attr1,attr2,attr3))
+    except Exception as e:
+        alert("Violates foreign key constraints.");
+        return make_response(str(e), 500)
+@app.route("/api/deletesells/<item>",methods=["GET"])
+def delete_sells(item):
+    try:
+        return jsonify(database.delete_sells(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addtransacts",methods=["POST"])
+def insert_transacts():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        attr3 = body["attr3"]
+        return jsonify(database.insert_transacts(attr1,attr2,attr3))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deletetransacts/<item>",methods=["GET"])
+def delete_transacts(item):
+    try:
+        return jsonify(database.delete_transacts(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/addworks",methods=["POST"])
+def insert_works():
+    try:
+        body = json.loads(request.data)
+        attr1 = body["attr1"]
+        attr2 = body["attr2"]
+        attr3 = body["attr3"]
+        attr4 = body["attr4"]
+        attr5 = body["attr5"]
+        return jsonify(database.insert_works(attr1,attr2,attr3,attr4,attr5))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/deleteworks/<item>",methods=["GET"])
+def delete_works(item):
+    try:
+        return jsonify(database.delete_works(item))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/frequents', methods=["GET"])
+def get_frequents():
+    return jsonify(database.get_frequents())
+@app.route('/api/hours', methods=["GET"])
+def get_hours():
+    return jsonify(database.get_hours())
+@app.route('/api/inventory', methods=["GET"])
+def get_inventory():
+    return jsonify(database.get_inventory())
+@app.route('/api/likes', methods=["GET"])
+def get_likes():
+    return jsonify(database.get_likes())
+@app.route('/api/operates', methods=["GET"])
+def get_operates():
+    return jsonify(database.get_operates())
+@app.route('/api/printed_on', methods=["GET"])
+def get_printed_on():
+    return jsonify(database.get_printed_on())
+@app.route('/api/sells', methods=["GET"])
+def get_sells():
+    return jsonify(database.get_sells())
+@app.route('/api/transacts', methods=["GET"])
+def get_transacts():
+    return jsonify(database.get_transacts())
+@app.route('/api/works', methods=["GET"])
+def get_works():
+    return jsonify(database.get_works())
+
 @app.route('/api/bar', methods=["GET"])
 def get_bars():
     return jsonify(database.get_bars())
