@@ -398,3 +398,26 @@ def busiest_time_of_day(bar):
 #order by total_orders desc
 
 
+def busiest_time_of_day(bar):
+    with engine.connect() as con:
+        query = sql.text(
+            "select * from \
+            (select  dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) as day_of_week,\
+             count(b1.transaction_id) from bills b1, transacts t1 \
+            where t1.bar = :bar and t1.bill = b1.transaction_id \
+            group by dayname(STR_TO_DATE(b1.date, '%d/%m/%Y'))) f1 \
+            order by FIELD(day_of_week, 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')")
+
+        rs = con.execute(query, bar=bar)
+        return [dict(row) for row in rs]
+
+#Query for above in case of potential formatting issues
+#select * from
+#(select dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) as day_of_week, count(b1.transaction_id)
+#from bills b1, transacts t1
+#where t1.bar = 'Abshire Group' and t1.bill = b1.transaction_id
+#group by dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) ) f1
+#ORDER BY FIELD(day_of_week, 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')
+
+
+
