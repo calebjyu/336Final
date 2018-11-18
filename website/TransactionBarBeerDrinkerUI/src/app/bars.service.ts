@@ -26,6 +26,10 @@ export interface beerRank{
   attr: string;
   tot_beers: number;
 }
+export interface Time{
+  day_of_week: string;
+  count: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +56,14 @@ export class BarsService {
   }
   getBeerRank(bar: string, day:string) {
     return this.http.get<beerRank[]>('/api/bar/'+bar+'/'+day);
+  }
+  getBusiestTimes(bar:string){
+    return this.http.get<Time[]>('api/bar/busy/'+bar);
+  }
+  getBusiestTimeOfDay(bar:string){
+    return this.http.get<Time[]>('api/bar/busyDay/'+bar);
+  }
+  getBarAnalytics(manf:string, day:string){
+    return this.http.get<beerRank[]>('api/bar/anal/'+manf+'/'+day);
   }
 }

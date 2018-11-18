@@ -10,12 +10,8 @@
   </div>
 
   <div class="container">
-    <br>
-    <div id="bargraph"></div>
-  </div>
-  <div class="container">
       <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Day
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -29,7 +25,34 @@
         </div>
         {{day}}
       </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Manufacturers
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          <a class="dropdown-item" (click)="setManf('Blue Moon')">Blue Moon</a>
+          <a class="dropdown-item" (click)="setManf('Pabst')">Pabst</a>
+          <a class="dropdown-item" (click)="setManf('Anheuser-Bush')">Anheuser-Bush</a>
+          <a class="dropdown-item" (click)="setManf('Coors')">Coors</a>
+          <a class="dropdown-item" (click)="setManf('Grupo Modelo')">Grupo Modelo</a>
+          <a class="dropdown-item" (click)="setManf('Heineken')">Heineken</a>
+          <a class="dropdown-item" (click)="setManf('Diago')">Diago</a>
+          <a class="dropdown-item" (click)="setManf('Miller')">Miller</a>
+          <a class="dropdown-item" (click)="setManf('Steel Brewing')">Steel Brewing</a>
+          <a class="dropdown-item" (click)="setManf('Yuengling')">Yuengling</a>
+        </div>
+        {{manf}}
+        <button pButton type="button" label="Render" (click)="render($event)"></button>
+      </div>
       <br>
       <div id="bargraph2"></div>
+      <br>
+      <div id="bargraph5"></div>
+      <br>
+      <div id="bargraph"></div>
+      <br>
+      <div id="bargraph3"></div>
+      <br>
+      <div id="bargraph4"></div>
   </div>
   <br><br>

@@ -145,6 +145,25 @@ def top_10_beers_of_bar_on_dow(bar,day):
         return jsonify(database.top_10_beers_of_bar_on_dow(bar,day))
     except Exception as e:
         return make_response(str(e), 500)
+@app.route("/api/bar/busyDay/<bar>", methods=["GET"])
+def busiest_time_of_the_day(bar):
+    try:
+        return jsonify(database.busiest_time_of_day(bar))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route("/api/bar/busy/<bar>", methods=["GET"])
+def busiest_time_of_the_week(bar):
+    try:
+        return jsonify(database.busiest_times_of_week(bar))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route("/api/bar/anal/<manf>/<day>", methods=["GET"])
+def top_ten_bars_for_manf_per_day(manf,day):
+    try:
+        return jsonify(database.top_ten_bars_for_manf_per_day(manf,day))
+    except Exception as e:
+        return make_response(str(e), 500)
 
 @app.route("/api/addDrinker",methods=["POST"])
 def insert_into_drinkers():

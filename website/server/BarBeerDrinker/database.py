@@ -379,12 +379,12 @@ def busiest_time_of_day(bar):
     with engine.connect() as con:
         query = sql.text(
             "select * from \
-            (select hour(str_to_date(b1.time), '%l:%i %p')) as hour, count(b1.transaction_id) as total_orders\
-            from bills b1, transacts t1\
-            where t1.bill = b1.transaction_id\
-            and t1.bar = :bar  \
-            group by hour(str_to_date(b1.time), '%l:%i %p'))) f1 \
-            order by total_orders desc")
+(select hour(str_to_date(b1.time, '%l:%i %p')) as day_of_week, count(b1.transaction_id) as count \
+from bills b1, transacts t1 \
+where t1.bill = b1.transaction_id \
+and t1.bar = :bar \
+group by hour(str_to_date(b1.time, '%l:%i %p'))) f1 \
+order by day_of_week")
         rs = con.execute(query, bar=bar)
         return [dict(row) for row in rs]
 
@@ -403,7 +403,7 @@ def busiest_times_of_week(bar):
         query = sql.text(
             "select * from \
             (select  dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) as day_of_week,\
-             count(b1.transaction_id) from bills b1, transacts t1 \
+             count(b1.transaction_id) as count from bills b1, transacts t1 \
             where t1.bar = :bar and t1.bill = b1.transaction_id \
             group by dayname(STR_TO_DATE(b1.date, '%d/%m/%Y'))) f1 \
             order by FIELD(day_of_week, 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')")

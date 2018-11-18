@@ -13,6 +13,7 @@ export class BarDetailsComponent implements OnInit {
 
   barName: string;
   day:string;
+  manf:string;
   barDetails: Bar;
   menu: BarMenuItem[];
 
@@ -66,7 +67,30 @@ export class BarDetailsComponent implements OnInit {
           }
         );
       }
-      
+      barService.getBusiestTimes(this.barName).subscribe(
+        data=>{
+          const days = [];
+          const sales = [];
+          data.forEach(rank=>{
+            sales.push(rank.count);
+            days.push(rank.day_of_week);
+          });
+          this.renderChart(days, sales, 'Time Distribution of Sales', 'Day', 'Number of Sales',
+            'bargraph3');
+        }
+      );
+      barService.getBusiestTimeOfDay(this.barName).subscribe(
+        data=>{
+          const days = [];
+          const sales = [];
+          data.forEach(rank=>{
+            sales.push(rank.count);
+            days.push(rank.day_of_week);
+          });
+          this.renderChart(days, sales, 'Time Distribution of Sales', 'Hour', 'Number of Sales',
+            'bargraph4');
+        }
+      );
     }))
   }
 
@@ -74,6 +98,8 @@ export class BarDetailsComponent implements OnInit {
   }
   setDay(day:string){
     this.day=day;
+  }
+  render(){
     if(this.day){
       this.barService.getBeerRank(this.barName,this.day).subscribe(
         data=>{
@@ -87,6 +113,22 @@ export class BarDetailsComponent implements OnInit {
         }
       );
       }
+    if(this.manf && this.day){
+      this.barService.getBarAnalytics(this.manf,this.day).subscribe(
+        data=>{
+          const brand = [];
+          const sales = [];
+          data.forEach(rank=>{
+            brand.push(rank.attr);
+            sales.push(rank.tot_beers);
+          });
+          this.renderChart(brand, sales, 'Bars Ranked by Manufacturer and Day', 'Bar', 'Number of Sales','bargraph5');
+        }
+      );
+    }
+  }
+  setManf(manf:string){
+    this.manf=manf;
   }
   renderChart(xData: string[] , yData: number[], title:string, x:string, y:string ,id:string){
     Highcharts.chart(id, {
