@@ -421,3 +421,35 @@ def busiest_time_of_day(bar):
 
 
 
+def top_ten_bars_for_manf_per_day(manf, day):
+    with engine.connect() as con:
+        query = sql.text(
+            "select * from \
+            (select t1.bar, count(p1.item) as tot_beers \
+            from printed_on p1, bills b1, transacts t1, items i1 \
+            where (b1.transaction_id = p1.bill and t1.bill = p1.bill) \
+            and ((p1.item = i1.name and i1.attr = :manf) and \
+            dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) = :day) \
+            group by dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')), i1.attr, t1.bar) f1 \
+            order by f1.tot_beers desc limit 10")
+
+        rs = con.execute(query, manf = manf, day = day)
+        return [dict(row) for row in rs]
+#Query for above in cas eof potential formatting issues
+
+#select * from
+#(select t1.bar, count(p1.item) as tot_beers
+#from printed_on p1, bills b1, transacts t1, items i1
+#where (b1.transaction_id = p1.bill and t1.bill = p1.bill)
+#and ((p1.item = i1.name and i1.attr = 'Anheuser-Busch')
+#     and dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) = 'Monday')
+#group by dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')), i1.attr, t1.bar) f1
+#order by f1.tot_beers desc limit 10
+
+
+
+
+
+
+
+
