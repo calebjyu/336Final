@@ -13,3 +13,23 @@
     <br>
     <div id="bargraph"></div>
   </div>
+  <div class="container">
+      <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Day
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="setDay('Monday')">Monday</a>
+            <a class="dropdown-item" (click)="setDay('Tuesday')">Tuesday</a>
+            <a class="dropdown-item" (click)="setDay('Wednesday')">Wednesday</a>
+            <a class="dropdown-item" (click)="setDay('Thursday')">Thursday</a>
+            <a class="dropdown-item" (click)="setDay('Friday')">Friday</a>
+            <a class="dropdown-item" (click)="setDay('Saturday')">Saturday</a>
+            <a class="dropdown-item" (click)="setDay('Sunday')">Sunday</a>
+        </div>
+        {{day}}
+      </div>
+      <br>
+      <div id="bargraph2"></div>
+  </div>
+  <br><br>

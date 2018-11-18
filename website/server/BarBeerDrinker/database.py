@@ -368,7 +368,7 @@ def top_10_beers_of_bar_on_dow(bar, day):
 
 #select * from
 #(select i1.attr, count(p1.item) as tot_beers
-from printed_on p1, bills b1, transacts t1, items i1
+#from printed_on p1, bills b1, transacts t1, items i1
 #where ((b1.transaction_id = p1.bill and t1.bill = p1.bill) and
  #      t1.bar = 'Dicki-Kuphal') and ((p1.item = i1.name and i1.type = 'beer')
 #                                     and dayname(STR_TO_DATE(b1.date, '%d/%m/%Y')) = 'Monday')

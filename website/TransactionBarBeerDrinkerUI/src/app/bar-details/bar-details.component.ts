@@ -12,6 +12,7 @@ declare const Highcharts: any;
 export class BarDetailsComponent implements OnInit {
 
   barName: string;
+  day:string;
   barDetails: Bar;
   menu: BarMenuItem[];
 
@@ -50,24 +51,43 @@ export class BarDetailsComponent implements OnInit {
           this.renderChart(drinkers, spent, 'Largest Spenders', 'Drinker', 'Amount', 'bargraph');
         }
       );
-      barService.getBeerRank(this.barName).subscribe(
-        data=>{
-          const brand = [];
-          const sales = [];
-          data.forEach(rank=>{
-            brand.push(rank.brand);
-            sales.push(rank.sales);
-          });
-          this.renderChart(brand, sales, 'Most Popular Beer Brands per Bar', 'Brand', 'Number of Sales',
-            'bargraph');
-        }
-      );
+      if(this.day)
+      {
+        barService.getBeerRank(this.barName,this.day).subscribe(
+          data=>{
+            const brand = [];
+            const sales = [];
+            data.forEach(rank=>{
+              brand.push(rank.attr);
+              sales.push(rank.tot_beers);
+            });
+            this.renderChart(brand, sales, 'Most Popular Beer Brands per Bar', 'Brand', 'Number of Sales',
+              'bargraph2');
+          }
+        );
+      }
+      
     }))
   }
 
   ngOnInit() {
   }
-
+  setDay(day:string){
+    this.day=day;
+    if(this.day){
+      this.barService.getBeerRank(this.barName,this.day).subscribe(
+        data=>{
+          const brand = [];
+          const sales = [];
+          data.forEach(rank=>{
+            brand.push(rank.attr);
+            sales.push(rank.tot_beers);
+          });
+          this.renderChart(brand, sales, 'Most Popular Beer Brands per Bar', 'Brand', 'Number of Sales','bargraph2');
+        }
+      );
+      }
+  }
   renderChart(xData: string[] , yData: number[], title:string, x:string, y:string ,id:string){
     Highcharts.chart(id, {
       chart: {

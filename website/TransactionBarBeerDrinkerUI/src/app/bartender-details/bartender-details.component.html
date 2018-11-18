@@ -4,17 +4,8 @@
   </div>
 </div>
 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Drinker
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-    <a class="dropdown-item" href="#">Item</a>
-  </div>
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Bar
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-    <a class="dropdown-item" href="#">Item</a>
-  </div>
+<div class="container">
+    <input id="drinker_name" type="text" pInputText />
+    <input id="bar_name" type="text" pInputText />
+    <button pButton type="button" label="Find" (click)="get_shifts($event)"></button>
 </div>

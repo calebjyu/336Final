@@ -139,6 +139,12 @@ def get_largest_spenders(bar):
         return jsonify(database.top_10_spenders_in_bars(bar))
     except Exception as e:
         return make_response(str(e), 500)
+@app.route("/api/bar/<bar>/<day>", methods=["GET"])
+def top_10_beers_of_bar_on_dow(bar,day):
+    try:
+        return jsonify(database.top_10_beers_of_bar_on_dow(bar,day))
+    except Exception as e:
+        return make_response(str(e), 500)
 
 @app.route("/api/addDrinker",methods=["POST"])
 def insert_into_drinkers():

@@ -23,8 +23,8 @@ export interface largestSpenders{
 }
 
 export interface beerRank{
-  brand: string;
-  sales: number;
+  attr: string;
+  tot_beers: number;
 }
 
 @Injectable({
@@ -50,7 +50,7 @@ export class BarsService {
   getLargestSpenders(bar: string){
     return this.http.get<largestSpenders[]>('/api/bar/spend/'+bar);
   }
-  getBeerRank(bar: string) {
-    return this.http.get<beerRank[]>('/api/bar/rank/'+bar);
+  getBeerRank(bar: string, day:string) {
+    return this.http.get<beerRank[]>('/api/bar/'+bar+'/'+day);
   }
 }

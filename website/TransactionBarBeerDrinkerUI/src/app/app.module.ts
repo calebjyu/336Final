@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule, Button} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,7 +50,8 @@ import { BartenderDetailsComponent } from './bartender-details/bartender-details
     DropdownModule,
     ButtonModule,
     InputTextModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AutoCompleteModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
