@@ -5,11 +5,34 @@
 </div>
 
 <div class="container">
-    <input id="bar_name" type="text" pInputText />
-    <button pButton type="button" label="Find" (click)="get_shifts($event)"></button>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Bars
+      </button>
+      <div id="bar-dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      </div>
+    </div>
 </div>
 <div class="container">
     <br>
     <div id="bargraph"></div>
+</div>
+<div class="container">
+  <p-table [value]="shifts">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Shift</th>
+            <th>Brand</th>
+            <th>Amount Sold</th>
+          </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-shifts>
+        <tr>
+            <td>{{shifts.shift}}</td>
+            <td>{{shifts.attr}}</td>
+            <td>{{shifts.amount_of_beers}}</td>
+          </tr>
+    </ng-template>
+  </p-table>
 </div>
 <br><br>
