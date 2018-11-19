@@ -20,7 +20,9 @@
                 {{beer.name}}
               </a>
             </td>
-            <td>{{beer.attr}}</td>
+            <td><a routerLink="/manf/{{beer.attr}}">
+              {{beer.attr}}
+            </a></td>
           </tr>
     </ng-template>
   </p-table>
